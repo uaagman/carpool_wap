@@ -1,0 +1,32 @@
+#offerRide, #askForRide {
+    background-color: #b0dcea;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+    color: black !important;
+}
+
+#offerRide {
+    background-color: #92acf8;
+}
+
+.title {
+    text-align: center;
+    background-color: white;
+}
+
+#bodyOfHome {
+    /*border: 2px solid red;*/
+    margin-top: 2%;
+}
+
+.loading{
+    text-align: center;
+    display: none;
+}
+
+.error{
+    color: red;
+    background-color: white;
+    text-align: center;
+}

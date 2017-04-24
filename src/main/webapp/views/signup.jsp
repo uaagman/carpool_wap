@@ -1,5 +1,5 @@
 <%@include file="inc/header.jsp" %>
-<title>Login - Carpool</title>
+<title>Signup - Carpool</title>
 <link href="/resources/css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form method="post" action="/signup" class="signup">
-
+                <h4 class="error">${errorMsg}</h4>
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" name="fullName" id="fullName" required="required" class="form-control"/>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">
                     <label for="zipCode">Zip code</label>
-                    <input type="text" name="zipCode" id="zipCode" required="required" class="form-control"/>
+                    <input type="number" name="zipCode" id="zipCode" required="required" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label for="birthYear">Birth Year</label>
@@ -64,5 +64,7 @@
     </div>
 </div>
 
-<script src="resources/js/login.js"></script>
 <%@include file="inc/footer.jsp" %>
+<script src="resources/js/login.js" rel="script" type="text/javascript"></script>
+</body>
+</html>

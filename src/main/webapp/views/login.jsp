@@ -31,5 +31,7 @@
     </div>
 </div>
 
-<script src="resources/js/login.js"></script>
-<%@include file="inc/footer.jsp"%>
+<%@include file="inc/footer.jsp" %>
+<script src="resources/js/login.js" rel="script" type="text/javascript"></script>
+</body>
+</html>
