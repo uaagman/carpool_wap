@@ -23,6 +23,18 @@ public class User {
         this.password = password;
     }
 
+    public User(String fullname, String gender, String state, String city, String street, Integer zipCode, Integer birthYear, String email, String password) {
+        this.fullname = fullname;
+        this.gender = gender;
+        this.state = state;
+        this.city = city;
+        this.street = street;
+        this.zipCode = zipCode;
+        this.birthYear = birthYear;
+        this.email = email;
+        this.password = password;
+    }
+
     public String getUserId() {
         return userId;
     }

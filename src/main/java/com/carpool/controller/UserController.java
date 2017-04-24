@@ -19,32 +19,52 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping("/login")
-    public ModelAndView loginForm(){
+    public ModelAndView loginForm() {
         return new ModelAndView("login");
     }
 
     @PostMapping("/login")
-    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password){
+    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password) {
         //User dbUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         User dbUser = userRepository.findByEmailAndPassword(username, password);
-        System.out.println("Db User:"+dbUser);
+        System.out.println("Db User:" + dbUser);
         ModelAndView modelAndView = new ModelAndView();
-        if (dbUser==null){
+        if (dbUser == null) {
             modelAndView.addObject("errorMsg", "Username or password is incorrect");
             modelAndView.setViewName("login");
             return modelAndView;
-        }else {
+        } else {
             return new ModelAndView("redirect:/home", model);
         }
     }
 
     @GetMapping("/signup")
-    public ModelAndView signupForm(){
+    public ModelAndView signupForm() {
         return new ModelAndView("signup");
     }
 
     @PostMapping("/signup")
-    public ModelAndView signupPost(){
-        return new ModelAndView("signup");
+    public ModelAndView signupPost(@RequestParam String fullname,
+                                   @RequestParam String gender,
+                                   @RequestParam String state,
+                                   @RequestParam String city,
+                                   @RequestParam String street,
+                                   @RequestParam Integer zipCode,
+                                   @RequestParam Integer birthYear,
+                                   @RequestParam String email,
+                                   @RequestParam String password,
+                                   @RequestParam String rePassword, ModelMap model) {
+
+        User user = new User(fullname, gender, state, city, street, zipCode, birthYear, email, password);
+        userRepository.insert(user);
+        return new ModelAndView("redirect:/home", model);
+        /*if (!password.equals(rePassword)){
+            ModelAndView modelAndView = new ModelAndView("signup");
+            modelAndView.addObject("errorMsg", "Password Confirmation didnt matched!!!");
+            return modelAndView;
+        }else {
+
+        }*/
+
     }
 }
