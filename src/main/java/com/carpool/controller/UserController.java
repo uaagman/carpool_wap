@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ModelAndView signupPost(@RequestParam String fullname,
+    public ModelAndView signupPost(@RequestParam String fullName,
                                    @RequestParam String gender,
                                    @RequestParam String state,
                                    @RequestParam String city,
@@ -55,10 +55,11 @@ public class UserController {
                                    @RequestParam Integer birthYear,
                                    @RequestParam String email,
                                    @RequestParam String password,
-                                   @RequestParam String rePassword, ModelMap model) {
+                                   ModelMap model) {
 
-        User user = new User(fullname, gender, state, city, street, zipCode, birthYear, email, password);
+        User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
         userRepository.insert(user);
+        model.addAttribute("LoggedUser",email);
         return new ModelAndView("redirect:/home", model);
         /*if (!password.equals(rePassword)){
             ModelAndView modelAndView = new ModelAndView("signup");
@@ -67,6 +68,5 @@ public class UserController {
         }else {
 
         }*/
-
     }
 }
