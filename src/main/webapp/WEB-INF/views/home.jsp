@@ -1,1 +1,1 @@
-<h1>heome</h1>
+<h1>home</h1>
