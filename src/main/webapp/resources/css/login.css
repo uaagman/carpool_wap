@@ -5,3 +5,7 @@
     margin-top: 20%;
     padding: 10%;
 }
+.error{
+    color: red;
+    text-align: center;
+}

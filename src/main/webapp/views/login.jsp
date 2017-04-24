@@ -8,6 +8,7 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <form method="post" action="/login" class="login">
+                <h4 class="error">${errorMsg}</h4>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" required="required" class="form-control"/>

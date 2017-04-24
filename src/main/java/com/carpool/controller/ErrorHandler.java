@@ -2,7 +2,7 @@ package com.carpool.controller;
 
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ErrorHandler implements ErrorController {
     private static final String PATH = "/error";
 
-    @RequestMapping(PATH)
+    @GetMapping(PATH)
     public ModelAndView error(){
         return new ModelAndView(PATH);
     }
