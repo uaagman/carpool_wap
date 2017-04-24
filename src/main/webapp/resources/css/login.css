@@ -5,6 +5,13 @@
     margin-top: 20%;
     padding: 10%;
 }
+.signup{
+    background-color: #E0E0E0;
+    border: 1px solid grey;
+    border-radius: 8% 0;
+    margin: 5% 0;
+    padding: 10%;
+}
 .error{
     color: red;
     text-align: center;

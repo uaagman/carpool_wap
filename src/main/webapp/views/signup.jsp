@@ -6,8 +6,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <form method="post" action="/signup" class="login">
+        <div class="col-md-6 col-md-offset-3">
+            <form method="post" action="/signup" class="signup">
 
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
@@ -24,42 +24,40 @@
                 </div>
                 <div class="form-group">
                     <label for="state">State</label>
-                    <input type="text" name="state" id="state" required="required"/>
+                    <input type="text" name="state" id="state" required="required" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label for="city">City</label>
-                    <input type="text" name="city" id="city" required="required"/>
+                    <input type="text" name="city" id="city" required="required" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label for="street">Stret</label>
-                    <input type="text" name="street" id="street" required="required"/>
+                    <input type="text" name="street" id="street" required="required" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label for="zipCode">Zip code</label>
-                    <input type="text" name="zipCode" id="zipCode" required="required"/>
+                    <input type="text" name="zipCode" id="zipCode" required="required" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label for="birthYear">Birth Year</label>
-                    <input type="number" name="birthYear" id="birthYear" required="required"/>
+                    <input type="number" name="birthYear" id="birthYear" required="required" class="form-control"/>
                 </div>
                 <hr/>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" required="required"/>
+                    <input type="email" name="email" id="email" required="required" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required="required"/>
+                    <input type="password" name="password" id="password" required="required" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label for="rePassword">Reenter Password</label>
-                    <input type="number" name="rePasword" id="rePassword" required="required"/>
+                    <input type="password" name="rePasword" id="rePassword" required="required" class="form-control"/>
                 </div>
-                <button class="btn btn-primary pull-right" type="submit">Login</button>
-                <div class="clearfix">
-                    <hr/>
-                    New To Carpool? <a href="/signup">Sign Up</a> Now
-                </div>
+                <hr/>
+                <a class="btn btn-default" href="<c:url value="/login"/>">Back</a>
+                <button class="btn btn-primary pull-right" type="submit">Signup</button>
             </form>
 
         </div>

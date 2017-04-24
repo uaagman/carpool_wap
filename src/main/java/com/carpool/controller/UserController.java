@@ -14,32 +14,34 @@ import java.util.List;
  * Created by Crawlers on 4/24/2017.
  */
 @Controller
+@SessionAttributes({"LoggedUser"})
 public class UserController {
     @Autowired
     UserRepository userRepository;
 
     @GetMapping("/login")
-    public ModelAndView loginForm() {
+    public ModelAndView loginForm(){
         return new ModelAndView("login");
     }
 
     @PostMapping("/login")
-    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password) {
+    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password){
         //User dbUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         User dbUser = userRepository.findByEmailAndPassword(username, password);
-        System.out.println("Db User:" + dbUser);
+        System.out.println("Db User:"+dbUser);
         ModelAndView modelAndView = new ModelAndView();
-        if (dbUser == null) {
+        if (dbUser==null){
             modelAndView.addObject("errorMsg", "Username or password is incorrect");
             modelAndView.setViewName("login");
             return modelAndView;
-        } else {
+        }else {
+            model.addAttribute("LoggedUser",username);
             return new ModelAndView("redirect:/home", model);
         }
     }
 
     @GetMapping("/signup")
-    public ModelAndView signupForm() {
+    public ModelAndView signupForm(){
         return new ModelAndView("signup");
     }
 
