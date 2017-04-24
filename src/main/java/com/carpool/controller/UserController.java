@@ -8,13 +8,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  * Created by Crawlers on 4/24/2017.
  */
 @Controller
-@SessionAttributes({"LoggedUser"})
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password){
+    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password, HttpSession session){
         //User dbUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         User dbUser = userRepository.findByEmailAndPassword(username, password);
         System.out.println("Db User:"+dbUser);
@@ -35,7 +35,8 @@ public class UserController {
             modelAndView.setViewName("login");
             return modelAndView;
         }else {
-            model.addAttribute("LoggedUser",username);
+            //session.addAttribute("LoggedUser",username);
+            session.setAttribute("LoggedUser",username);
             return new ModelAndView("redirect:/home", model);
         }
     }
@@ -69,4 +70,13 @@ public class UserController {
 
         }*/
     }
+
+    @GetMapping("/logout")
+    public ModelAndView logout(ModelMap model, HttpSession session){
+        session.removeAttribute("LoggedUser");
+        session.invalidate();
+        return new ModelAndView("redirect:/home", model);
+    }
+
+
 }
