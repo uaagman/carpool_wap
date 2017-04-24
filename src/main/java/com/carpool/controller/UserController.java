@@ -14,6 +14,7 @@ import java.util.List;
  * Created by Crawlers on 4/24/2017.
  */
 @Controller
+@SessionAttributes({"LoggedUser"})
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -34,6 +35,7 @@ public class UserController {
             modelAndView.setViewName("login");
             return modelAndView;
         }else {
+            model.addAttribute("LoggedUser",username);
             return new ModelAndView("redirect:/home", model);
         }
     }
