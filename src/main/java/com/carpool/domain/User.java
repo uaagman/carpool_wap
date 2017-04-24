@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 public class User {
     @Id
     private String userId;
-    private String fullname;
+    private String fullName;
     private String gender;
     private String state;
     private String city;
@@ -18,13 +18,30 @@ public class User {
     private String email;
     private String password;
 
+    public User(){
+
+    }
+
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public User(String fullname, String gender, String state, String city, String street, Integer zipCode, Integer birthYear, String email, String password) {
-        this.fullname = fullname;
+    public User(String fullName, String gender, String state, String city, String street, Integer zipCode, Integer birthYear, String email, String password) {
+        this.fullName = fullName;
+        this.gender = gender;
+        this.state = state;
+        this.city = city;
+        this.street = street;
+        this.zipCode = zipCode;
+        this.birthYear = birthYear;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String userId, String fullName, String gender, String state, String city, String street, Integer zipCode, Integer birthYear, String email, String password) {
+        this.userId = userId;
+        this.fullName = fullName;
         this.gender = gender;
         this.state = state;
         this.city = city;
@@ -43,12 +60,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getGender() {
@@ -119,7 +136,7 @@ public class User {
     public String toString() {
         return "User{" +
             "userId='" + userId + '\'' +
-            ", fullname='" + fullname + '\'' +
+            ", fullName='" + fullName + '\'' +
             ", gender='" + gender + '\'' +
             ", state='" + state + '\'' +
             ", city='" + city + '\'' +
