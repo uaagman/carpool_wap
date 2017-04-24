@@ -13,6 +13,7 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User, String> {
     public User findByUserId(String userId);
     public User findByFullname(String fullname);
+    public User findByEmailAndPassword(String email, String password);
     public List<User> findAll();
     public User insert(User user);
 }
