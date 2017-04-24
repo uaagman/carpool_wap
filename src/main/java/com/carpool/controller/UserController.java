@@ -4,6 +4,7 @@ import com.carpool.domain.User;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String username, @RequestParam String password){
+    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password){
         //User dbUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         User dbUser = userRepository.findByEmailAndPassword(username, password);
         System.out.println("Db User:"+dbUser);
@@ -31,18 +32,18 @@ public class UserController {
         if (dbUser==null){
             modelAndView.addObject("errorMsg", "Username or password is incorrect");
             modelAndView.setViewName("login");
+            return modelAndView;
         }else {
-            modelAndView.setViewName("home");
+            return new ModelAndView("redirect:/home", model);
         }
-        return modelAndView;
     }
 
-    @GetMapping(value = "/signup")
+    @GetMapping("/signup")
     public ModelAndView signupForm(){
         return new ModelAndView("signup");
     }
 
-    @PostMapping(value = "/signup")
+    @PostMapping("/signup")
     public ModelAndView signupPost(){
         return new ModelAndView("signup");
     }
