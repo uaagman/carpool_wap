@@ -30,5 +30,5 @@
     </div>
 </div>
 
-<script src="<c:url value="../../resources/js/login.js"/> "></script>
+<script src="resources/js/login.js"></script>
 <%@include file="inc/footer.jsp"%>
