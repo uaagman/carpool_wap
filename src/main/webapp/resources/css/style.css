@@ -28,3 +28,14 @@ body {
     color:#303030;
     font-size: 0.8em;
 }
+
+fieldset {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    border: 1px solid gray;
+}
+
+#post{
+    margin-top: 10px;
+}

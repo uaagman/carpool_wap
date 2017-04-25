@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import com.carpool.validator.Validator;
 import java.util.Collection;
 
 /**
@@ -22,6 +23,9 @@ import java.util.Collection;
 public class PostsController {
     @Autowired
     PostsRepository postsRepository;
+
+    @Autowired
+    Validator<Posts> validator;
 
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Posts> findAll(){
@@ -59,43 +63,5 @@ public class PostsController {
 //    public ModelAndView loginForm(){
 //        return new ModelAndView("posts");
 //    }
-
-    @GetMapping("/newpost")
-    public ModelAndView postForm(){
-        return new ModelAndView("newpost");
-    }
-
-    @PostMapping("/newpost")
-    public ModelAndView postNew(
-            @RequestParam String post,
-            @RequestParam String postType,
-            @RequestParam String dueDate,
-            @RequestParam String fromCity,
-            @RequestParam String fromState,
-            @RequestParam String fromZip,
-            @RequestParam String toCity,
-            @RequestParam String toState,
-            @RequestParam String toZip,
-            ModelMap model, HttpSession session){
-        //LocalDateTime.now()
-        String userId=(String)session.getAttribute("LoggedUser");
-        if(userId==null)
-        {
-            session.setAttribute("errorMsg","Not authorized user");
-            return new ModelAndView("redirect:/login", model);
-        }
-        if(!"pool".equals(postType) && !"share".equals(postType)){
-            System.out.println("Warning post manipulation");
-            return new ModelAndView("redirect:/home", model);
-        }
-
-        LocalDate dDate=  LocalDate.now();
-        //Posts posts1 = new Posts(userId,post,pType,LocalDateTime.now(),LocalDateTime.now());
-        Posts posts = new Posts( userId, post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
-        posts = postsRepository.insert(posts);
-        System.out.println("New Posts:"+posts);
-        return new ModelAndView("redirect:/home", model);
-    }
-
 
 }

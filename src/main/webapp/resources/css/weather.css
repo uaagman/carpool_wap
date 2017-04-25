@@ -1,0 +1,13 @@
+.weatherTab h4{
+    background-color: white;
+    text-align: center;
+}
+.weatherTab{
+    border: 1px solid brown;
+    margin-bottom: 20px;
+}
+.weatherCols{
+    border: 1px solid brown;
+    background-color: white;
+    padding: 10px;
+}

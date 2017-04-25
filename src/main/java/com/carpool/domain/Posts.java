@@ -1,5 +1,7 @@
 package com.carpool.domain;
 
+import com.carpool.validator.constraint.Length;
+import com.carpool.validator.constraint.Number;
 import org.springframework.data.annotation.Id;
 
 import java.security.Timestamp;
@@ -22,21 +24,25 @@ public class Posts {
 
     private LocalDateTime datecreated = LocalDateTime.now();
     private LocalDateTime dateupdated = LocalDateTime.now();
-    private LocalDate duedate = LocalDate.now();
+    private LocalDateTime duedate;// = LocalDateTime.now(;
 
     private String fromCity;
     private String fromState;
+    @Number
+    @Length(min = 5, max = 5)
     private String fromZip;
 
     private String toCity;
     private String toState;
+    @Number
+    @Length(min = 5, max = 5)
     private String toZip;
 
     public Posts(){
 
     }
 
-    public Posts( String userId, String post, String postType, LocalDateTime datecreated, LocalDateTime dateupdated, LocalDate duedate, String fromCity, String fromState, String fromZip, String toCity, String toState, String toZip) {
+    public Posts( String userId, String post, String postType, LocalDateTime datecreated, LocalDateTime dateupdated, LocalDateTime duedate, String fromCity, String fromState, String fromZip, String toCity, String toState, String toZip) {
 
         this.userId = userId;
         this.post = post;
@@ -100,11 +106,11 @@ public class Posts {
         this.dateupdated = dateupdated;
     }
 
-    public LocalDate getDuedate() {
+    public LocalDateTime getDuedate() {
         return duedate;
     }
 
-    public void setDuedate(LocalDate duedate) {
+    public void setDuedate(LocalDateTime duedate) {
         this.duedate = duedate;
     }
 
