@@ -2,6 +2,7 @@ package com.carpool.controller;
 
 import com.carpool.domain.Posts;
 import com.carpool.repository.PostsRepository;
+import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
+import com.carpool.domain.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,6 +24,9 @@ import com.carpool.validator.Validator;
 public class PostsManupulationController {
     @Autowired
     PostsRepository postsRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     Validator<Posts> validator;
@@ -61,7 +65,8 @@ public class PostsManupulationController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a");
         LocalDateTime dDate=  LocalDateTime.parse(dueDate, formatter);
         //Posts posts1 = new Posts(userId,post,pType,LocalDateTime.now(),LocalDateTime.now());
-        Posts posts = new Posts( userId, post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
+        User user= userRepository.findByEmail(userId);
+        Posts posts = new Posts( user.getUserId(), post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
 
 
         if (validator.validate(posts)) {
