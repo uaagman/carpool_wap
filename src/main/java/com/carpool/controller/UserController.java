@@ -18,7 +18,6 @@ import java.util.List;
 /**
  * Created by Crawlers on 4/24/2017.
  */
-@RestController
 @Controller
 public class UserController {
     @Autowired
@@ -83,15 +82,6 @@ public class UserController {
         session.removeAttribute("loggedUser");
         session.invalidate();
         return new ModelAndView("redirect:/home", model);
-    }
-
-    @GetMapping("/getZipOfLoggedUser")
-    public Integer getUserByEmail(HttpSession session){
-        String email = (String) session.getAttribute("loggedUser");
-        if(email == null){
-            return 0;
-        }
-        return userRepository.findByEmail(email).getZipCode();
     }
 
     @GetMapping("/profile")

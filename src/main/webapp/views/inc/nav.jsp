@@ -23,7 +23,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${loggedUser}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><p>${loggedUser}</p></li>
+                            <%--<li><p>${loggedUser}</p></li>--%>
                             <li><a href="<c:url value="/profile"/>">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<c:url value="/logout"/>">Logout</a></li>
