@@ -1,15 +1,17 @@
 package com.carpool.controller;
 
+import com.carpool.domain.Comment;
+import com.carpool.domain.Like;
 import com.carpool.domain.User;
+import com.carpool.repository.CommentRepository;
+import com.carpool.repository.LikeRepository;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +22,12 @@ import java.util.Map;
 public class ProjectRestController {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
 
     @GetMapping("/getZipOfLoggedUser")
     public Integer getZipOfLoggedUser(HttpSession session){
@@ -39,9 +47,33 @@ public class ProjectRestController {
             Map<String,String> map = new HashMap<>();
             map.put("email",user.getEmail());
             map.put("fullName",user.getFullName());
-            System.out.println(map);
             return map;
         }
+    }
 
+    @GetMapping("/getLnC/{postId}")
+    public Map<String,Object> getLnC(@PathVariable("postId") String postId){
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        List<Like> likes = likeRepository.findByPostId(postId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("comments",comments);
+        map.put("likes",likes.size());
+        return map;
+    }
+
+    @PostMapping("/addComment")
+    public Map<String,Object> addComment(@RequestParam String postId, @RequestParam String comment,HttpSession session){
+        String email = (String) session.getAttribute("loggedUser");
+        User user = userRepository.findByEmail(email);
+        Comment comment1 = new Comment(user.getUserId(),postId,comment);
+        Comment comment2 = commentRepository.insert(comment1);
+
+        Map<String,String> map1 = new HashMap<>();
+        map1.put("fullName",user.getFullName());
+        map1.put("email",user.getEmail());
+        Map<String,Object> map = new HashMap<>();
+        map.put("comment",comment2);
+        map.put("user",map1);
+        return map;
     }
 }

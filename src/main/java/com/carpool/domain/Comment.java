@@ -17,12 +17,10 @@ public class Comment {
     private LocalDateTime dateCreated = LocalDateTime.now();
     private LocalDateTime dateUpdated = LocalDateTime.now();
 
-    public Comment(String userId, String postId, String comment, LocalDateTime dateCreated, LocalDateTime dateUpdated) {
+    public Comment(String userId, String postId, String comment) {
         this.userId = userId;
         this.postId = postId;
         this.comment = comment;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
     }
 
     public Comment() {
