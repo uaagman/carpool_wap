@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="dueDate">Birth Year</label>
+                    <label for="dueDate">Date</label>
                     <input type="number" name="dueDate" id="dueDate" required="required" class="form-control"/>
                 </div>
                 <hr>

@@ -60,17 +60,29 @@ public class UserController {
                                    @RequestParam Integer birthYear,
                                    @RequestParam String email,
                                    @RequestParam String password,
+                                   @RequestParam String rePassword,
                                    ModelMap model, HttpSession session) {
 
         User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
         if (validator.validate(user)) {
-            userRepository.insert(user);
-            model.addAttribute("loggedUser", email);
-            return new ModelAndView("redirect:/home", model);
+            if (password.equals(rePassword)){
+                userRepository.insert(user);
+                model.addAttribute("loggedUser", email);
+                return new ModelAndView("redirect:/home", model);
+            }else {
+                model.addAttribute("errorMsg", "Password Confirmation didn't matched!!!");
+                return new ModelAndView("signup");
+            }
         } else {
-            model.addAttribute("errorMsg", "User data posted is invalid");
+            model.addAttribute("errorMsg", "Data posted is invalid!!!");
             return new ModelAndView("signup");
         }
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView profile(HttpSession httpSession){
+
+        return new ModelAndView("signup");
     }
 
     @GetMapping("/logout")

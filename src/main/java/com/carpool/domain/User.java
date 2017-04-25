@@ -1,5 +1,6 @@
 package com.carpool.domain;
 
+import com.carpool.validator.constraint.Length;
 import com.carpool.validator.constraint.Number;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
@@ -16,12 +17,16 @@ public class User {
     private String city;
     private String street;
     @Number
+    @Length(min = 5, max = 5)
     private Integer zipCode;
     @Number
+    @Length(min = 4 , max = 4)
     private Integer birthYear;
     @Email
     private String email;
+    @Length(min = 6)
     private String password;
+    private String rePassword;
 
     public User(){
 
@@ -135,6 +140,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
     }
 
     @Override
