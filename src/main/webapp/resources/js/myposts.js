@@ -3,27 +3,32 @@
  */
 
 $(function () {
+    var loggedUser=$("#loggedUser")[0].innerText;
+    if(!loggedUser)
+        return;
     $("#offerRideMy").click(function () {
         $(this).css("background-color","#92acf8");
         $("#askForRideMy").css("background-color","#b0dcea");
-        loadPosts("share","Ride Offers");
+        loadPosts("share",loggedUser,"Ride Offers");
     });
 
     $("#askForRideMy").click(function () {
         $(this).css("background-color","#92acf8");
         $("#offerRideMy").css("background-color","#b0dcea");
-        loadPosts("pool","Ride Requests");
+        loadPosts("pool",loggedUser,"Ride Requests");
     });
 
-    loadPosts("share","Ride Offers");
+    loadPosts("share",loggedUser,"Ride Offers");
 });
 
-function loadPosts(type,title) {
+function loadPosts(type,loggedUser,title) {
     $(".loading").show();
+    if(!loggedUser)
+        return;
     var heading = $("<h2>").addClass("title").html(title);
     var body = $("#bodyOfHome");
     body.html(heading);
-    var url = "http://localhost:8080/posts/postType/" + type;
+    var url = "http://localhost:8080/posts/users/" + loggedUser+"/posts/"+type;
     $.ajax({
         url: url,
         type:"get",

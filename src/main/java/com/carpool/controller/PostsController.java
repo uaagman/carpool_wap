@@ -1,7 +1,9 @@
 package com.carpool.controller;
 
 import com.carpool.domain.Posts;
+import com.carpool.domain.User;
 import com.carpool.repository.PostsRepository;
+import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ import java.util.Collection;
 public class PostsController {
     @Autowired
     PostsRepository postsRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     Validator<Posts> validator;
@@ -55,7 +60,12 @@ public class PostsController {
     public Collection<Posts> findByUserIdAndPostType(
             @PathVariable("userId") String userId,
             @PathVariable("postType") String postType){
-        return postsRepository.findByUserIdAndPostType(userId,postType);
+        User user= userRepository.findByEmail(userId);
+        if(user!=null){
+            return postsRepository.findByUserIdAndPostType(user.getUserId(),postType);
+        }
+        else
+            return null;
     }
 
 

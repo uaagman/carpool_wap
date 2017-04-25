@@ -15,13 +15,13 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<c:url value="/"/> ">Home</a></li>
+                <li><a href="<c:url value="/home"/> ">Home</a></li>
                 <li><a href="<c:url value="/myposts"/>">My Posts</a></li>
                 <li><a href="<c:url value="/weather"/>">WeatherService</a></li>
                 <c:if test="${loggedUser ne null}">
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${loggedUser}<span class="caret"></span></a>
+                        <a id="loggedUser" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${loggedUser}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><p>${loggedUser}</p></li>
                             <li><a href="<c:url value="/profile"/>">Profile</a></li>
