@@ -7,3 +7,24 @@ body {
 .dropdown-menu{
     width: auto !important;
 }
+
+.showCommentBtn {
+    float:right;
+    margin-bottom: 5px;
+    margin-right:5px;
+}
+
+.commentTitle, .commentBody{
+    margin-left:20px;
+}
+.commentTitle {
+    color: #FF6A00;
+    font-weight: bold;
+    clear:both;
+
+}
+
+.commentBody {
+    color:#303030;
+    font-size: 0.8em;
+}

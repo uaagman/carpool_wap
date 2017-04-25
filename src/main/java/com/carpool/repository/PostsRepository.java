@@ -11,10 +11,14 @@ import java.util.List;
  */
 public interface PostsRepository extends MongoRepository<Posts, String> {
     public Posts findByPostId(String postId);
-    public Posts findByUserId(String userId);
+    public List<Posts> findByUserId(String userId);
     public Posts findByDatecreated(LocalDateTime datecreated);
     public Posts findByDateupdated(LocalDateTime dateupdated);
     public List<Posts> findByPostType(String postType);
     public List<Posts> findAll();
-    public Posts insert(Posts posts);
+   // public Posts insert(Posts posts);
+//    public void removePostsByPostId(String id);
+//    public void updatePosts(Posts posts);
+//    void insertPosts(Posts posts);
+
 }
