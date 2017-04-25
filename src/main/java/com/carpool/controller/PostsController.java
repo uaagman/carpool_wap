@@ -94,7 +94,7 @@ public class PostsController {
         Posts posts = new Posts( userId, post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
         posts = postsRepository.insert(posts);
         System.out.println("New Posts:"+posts);
-        return new ModelAndView("redirect:/posts", model);
+        return new ModelAndView("redirect:/home", model);
     }
 
 
