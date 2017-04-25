@@ -4,17 +4,21 @@ import com.carpool.domain.User;
 import com.carpool.repository.UserRepository;
 import com.carpool.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.List;
 
 /**
  * Created by Crawlers on 4/24/2017.
  */
+@RestController
 @Controller
 public class UserController {
     @Autowired
@@ -32,7 +36,7 @@ public class UserController {
     public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password, HttpSession session) {
         //User dbUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         User dbUser = userRepository.findByEmailAndPassword(username, password);
-        System.out.println("Db User:" + dbUser);
+//        System.out.println("Db User:" + dbUser);
         ModelAndView modelAndView = new ModelAndView();
         if (dbUser == null) {
             modelAndView.addObject("errorMsg", "Username or password is incorrect");
@@ -78,6 +82,20 @@ public class UserController {
         session.removeAttribute("loggedUser");
         session.invalidate();
         return new ModelAndView("redirect:/home", model);
+    }
+
+    @GetMapping("/getZipOfLoggedUser")
+    public Integer getUserByEmail(HttpSession session){
+        String email = (String) session.getAttribute("loggedUser");
+        if(email == null){
+            return 0;
+        }
+        return userRepository.findByEmail(email).getZipCode();
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView profile(){
+        return null;
     }
 
 

@@ -1,11 +1,22 @@
 <%@include file="inc/header.jsp" %>
-<title>Home - Carpool</title>
+<title>Weather - Carpool</title>
 <link href="/resources/css/weather.css" rel="stylesheet"/>
 </head><body>
 <%@include file="inc/nav.jsp" %>
 
 <div class="container">
-    <div class="dataBody"></div>
+    <div class="row">
+        <h3 id="weatherHeader" class="col-sm-8">Weather of 5 days / 3 hours display</h3>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" id="inputZip" class="form-control" placeholder="Search by Zip code">
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" id="searchZip" type="button">Go!</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="dataBody clearfix"></div>
 </div>
 
 
