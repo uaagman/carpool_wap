@@ -8,7 +8,8 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <form method="post" action="/login" class="login">
-                <h4 class="error">${errorMsg}</h4>
+                <div class="titleH">Login</div>
+                <div class="error">${errorMsg}</div>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" required="required" class="form-control"/>
@@ -31,5 +32,7 @@
     </div>
 </div>
 
-<script src="resources/js/login.js"></script>
-<%@include file="inc/footer.jsp"%>
+<%@include file="inc/footer.jsp" %>
+<script src="resources/js/login.js" rel="script" type="text/javascript"></script>
+</body>
+</html>
