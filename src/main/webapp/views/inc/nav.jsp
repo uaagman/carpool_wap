@@ -16,10 +16,18 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<c:url value="/"/> ">Home</a></li>
-                <li><a href="javascript:;">Products</a></li>
-                <li><a href="<c:url value="myCart"/> ">Cart</a></li>
+                <li><a href="<c:url value="/weather"/>">WeatherService</a></li>
                 <c:if test="${LoggedUser ne null}">
-                    <li><a href="<c:url value="logout"/>">(${loggedUser})Logout</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${loggedUser}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><p>${LoggedUser}</p></li>
+                            <li><a href="<c:url value="/profile"/>">Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<c:url value="/logout"/>">Logout</a></li>
+                        </ul>
+                    </li>
                 </c:if>
             </ul>
         </div>

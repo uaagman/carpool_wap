@@ -12,7 +12,12 @@
     margin: 5% 0;
     padding: 10%;
 }
+.titleH{
+    text-align: center;
+    font-size: 22px;
+}
 .error{
     color: red;
     text-align: center;
+    font-size: 14px;
 }
