@@ -2,6 +2,7 @@ package com.carpool.controller;
 
 import com.carpool.domain.User;
 import com.carpool.repository.UserRepository;
+import com.carpool.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,30 +20,33 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    Validator<User> validator;
+
     @GetMapping("/login")
-    public ModelAndView loginForm(){
+    public ModelAndView loginForm() {
         return new ModelAndView("login");
     }
 
     @PostMapping("/login")
-    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password, HttpSession session){
+    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password, HttpSession session) {
         //User dbUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         User dbUser = userRepository.findByEmailAndPassword(username, password);
-        System.out.println("Db User:"+dbUser);
+        System.out.println("Db User:" + dbUser);
         ModelAndView modelAndView = new ModelAndView();
-        if (dbUser==null){
+        if (dbUser == null) {
             modelAndView.addObject("errorMsg", "Username or password is incorrect");
             modelAndView.setViewName("login");
             return modelAndView;
-        }else {
-            //session.addAttribute("LoggedUser",username);
-            session.setAttribute("LoggedUser",username);
+        } else {
+            //session.addAttribute("loggedUser",username);
+            session.setAttribute("loggedUser", username);
             return new ModelAndView("redirect:/home", model);
         }
     }
 
     @GetMapping("/signup")
-    public ModelAndView signupForm(){
+    public ModelAndView signupForm() {
         return new ModelAndView("signup");
     }
 
@@ -59,21 +63,19 @@ public class UserController {
                                    ModelMap model, HttpSession session) {
 
         User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
-        userRepository.insert(user);
-        session.setAttribute("LoggedUser",email);
-        return new ModelAndView("redirect:/home", model);
-        /*if (!password.equals(rePassword)){
-            ModelAndView modelAndView = new ModelAndView("signup");
-            modelAndView.addObject("errorMsg", "Password Confirmation didnt matched!!!");
-            return modelAndView;
-        }else {
-
-        }*/
+        if (validator.validate(user)) {
+            userRepository.insert(user);
+            model.addAttribute("loggedUser", email);
+            return new ModelAndView("redirect:/home", model);
+        } else {
+            model.addAttribute("errorMsg", "User data posted is invalid");
+            return new ModelAndView("signup");
+        }
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(ModelMap model, HttpSession session){
-        session.removeAttribute("LoggedUser");
+    public ModelAndView logout(ModelMap model, HttpSession session) {
+        session.removeAttribute("loggedUser");
         session.invalidate();
         return new ModelAndView("redirect:/home", model);
     }

@@ -19,8 +19,9 @@
                 <li><a href="<c:url value="/myposts"/>">My Posts</a></li>
                 <li><a href="<c:url value="/weather"/>">WeatherService</a></li>
                 <c:if test="${LoggedUser ne null}">
+
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${LoggedUser}<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${loggedUser}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><p>${LoggedUser}</p></li>
                             <li><a href="<c:url value="/profile"/>">Profile</a></li>

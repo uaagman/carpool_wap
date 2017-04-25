@@ -1,5 +1,7 @@
 package com.carpool.domain;
 
+import com.carpool.validator.constraint.Number;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -13,8 +15,11 @@ public class User {
     private String state;
     private String city;
     private String street;
+    @Number
     private Integer zipCode;
+    @Number
     private Integer birthYear;
+    @Email
     private String email;
     private String password;
 
