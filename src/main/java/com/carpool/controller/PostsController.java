@@ -78,7 +78,7 @@ public class PostsController {
             @RequestParam String toZip,
             ModelMap model, HttpSession session){
         //LocalDateTime.now()
-        String userId=(String)session.getAttribute("LoggedUser");
+        String userId=(String)session.getAttribute("loggedUser");
         if(userId==null)
         {
             session.setAttribute("errorMsg","Not authorized user");
