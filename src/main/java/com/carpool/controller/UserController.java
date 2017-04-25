@@ -24,29 +24,29 @@ public class UserController {
     Validator<User> validator;
 
     @GetMapping("/login")
-    public ModelAndView loginForm(){
+    public ModelAndView loginForm() {
         return new ModelAndView("login");
     }
 
     @PostMapping("/login")
-    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password, HttpSession session){
+    public ModelAndView login(ModelMap model, @RequestParam String username, @RequestParam String password, HttpSession session) {
         //User dbUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         User dbUser = userRepository.findByEmailAndPassword(username, password);
-        System.out.println("Db User:"+dbUser);
+        System.out.println("Db User:" + dbUser);
         ModelAndView modelAndView = new ModelAndView();
-        if (dbUser==null){
+        if (dbUser == null) {
             modelAndView.addObject("errorMsg", "Username or password is incorrect");
             modelAndView.setViewName("login");
             return modelAndView;
-        }else {
+        } else {
             //session.addAttribute("loggedUser",username);
-            session.setAttribute("loggedUser",username);
+            session.setAttribute("loggedUser", username);
             return new ModelAndView("redirect:/home", model);
         }
     }
 
     @GetMapping("/signup")
-    public ModelAndView signupForm(){
+    public ModelAndView signupForm() {
         return new ModelAndView("signup");
     }
 
@@ -60,21 +60,21 @@ public class UserController {
                                    @RequestParam Integer birthYear,
                                    @RequestParam String email,
                                    @RequestParam String password,
-                                   ModelMap model) {
+                                   ModelMap model, HttpSession session) {
 
         User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
-        if (validator.validate(user)){
+        if (validator.validate(user)) {
             userRepository.insert(user);
-            model.addAttribute("loggedUser",email);
+            model.addAttribute("loggedUser", email);
             return new ModelAndView("redirect:/home", model);
-        }else {
+        } else {
             model.addAttribute("errorMsg", "User data posted is invalid");
             return new ModelAndView("signup");
         }
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(ModelMap model, HttpSession session){
+    public ModelAndView logout(ModelMap model, HttpSession session) {
         session.removeAttribute("loggedUser");
         session.invalidate();
         return new ModelAndView("redirect:/home", model);
