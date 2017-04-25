@@ -56,11 +56,11 @@ public class UserController {
                                    @RequestParam Integer birthYear,
                                    @RequestParam String email,
                                    @RequestParam String password,
-                                   ModelMap model) {
+                                   ModelMap model, HttpSession session) {
 
         User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
         userRepository.insert(user);
-        model.addAttribute("LoggedUser",email);
+        session.setAttribute("LoggedUser",email);
         return new ModelAndView("redirect:/home", model);
         /*if (!password.equals(rePassword)){
             ModelAndView modelAndView = new ModelAndView("signup");
