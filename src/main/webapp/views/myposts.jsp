@@ -3,6 +3,7 @@
 </head><body>
 <%@include file="inc/nav.jsp"%>
 <div class="container">
+
     <div class="row">
         <h1>My Posts</h1>
     </div>
