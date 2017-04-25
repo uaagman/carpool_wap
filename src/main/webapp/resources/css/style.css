@@ -4,3 +4,6 @@ body {
 .clearfix{
     clear: both;
 }
+.dropdown-menu{
+    width: auto !important;
+}

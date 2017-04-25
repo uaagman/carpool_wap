@@ -8,7 +8,8 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form method="post" action="/signup" class="signup">
-                <h4 class="error">${errorMsg}</h4>
+                <div class="titleH">Sign Up</div>
+                <div class="error">${errorMsg}</div>
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" name="fullName" id="fullName" required="required" class="form-control"/>
