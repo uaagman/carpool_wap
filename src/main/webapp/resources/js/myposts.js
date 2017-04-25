@@ -95,7 +95,7 @@ function loadPosts(type,loggedUser,title) {
             //     "postType":type
             // },
             success:function (data) {
-                alert("Delete successfull");
+                //alert("Delete successfull");
                 location.reload();
             },
             error:function (xhr,status,exception) {
