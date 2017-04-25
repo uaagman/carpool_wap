@@ -69,11 +69,11 @@ public class PostsController {
     }
 
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public void deletePostsById(@PathVariable("id") String id){
-//        postsRepository.removePostsByPostId(id);
-//
-//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deletePostsById(@PathVariable("id") String id){
+        postsRepository.removePostsByPostId(id);
+
+    }
 //
 //    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 //    public void deletePostsById(@RequestBody Posts posts){

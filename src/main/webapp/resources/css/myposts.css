@@ -12,3 +12,10 @@
 .container{
     margin-top:20px;
 }
+
+
+.deleteBtn {
+    float:right;
+    margin-top: 3px;
+    margin-right:5px;
+}

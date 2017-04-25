@@ -55,6 +55,15 @@ function loadPosts(type,loggedUser,title) {
                         ),
                         $('<br>'),
                         $("<button>", {
+                            "class": "deletePost",
+                            "postID": val.postId
+                        })
+                            .html("Delete").addClass("deleteBtn")
+                    ]);
+
+                divtag.append(
+                    [
+                        $("<button>", {
                             "class": "showComments",
                             "postID": val.postId
                         })
@@ -62,6 +71,7 @@ function loadPosts(type,loggedUser,title) {
                     ]);
                 body.append(divtag);
             })
+            $(".deletePost").click(deletePostFunction);
         },
         error:function (xhr,status,exception) {
             var error = $("<h5>").addClass("error").html("Error Loading Posts");
@@ -72,4 +82,30 @@ function loadPosts(type,loggedUser,title) {
         }
     });
 
+    function deletePostFunction(ev){
+        var postID = $(this).attr('postID');
+        var divAttach=$(this).closest("div");
+       if(!postID)
+            return;
+        var url = "http://localhost:8080/posts/" + postID;
+        $.ajax({
+            url: url,
+            type:"delete",
+            // data:{
+            //     "postType":type
+            // },
+            success:function (data) {
+                alert("Delete successfull");
+                location.reload();
+            },
+            error:function (xhr,status,exception) {
+                var error = $("<h5>").addClass("error").html("Error Deleting Posts");
+                body.append(error);
+            },
+            complete:function () {
+                $(".loading").hide();
+            }
+        });
+        $("loading").show();
+    }
 }
