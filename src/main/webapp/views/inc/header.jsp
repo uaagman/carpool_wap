@@ -8,4 +8,5 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="icon" href="/resources/images/favicon.png" />
+    <link href="/resources/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>
     <link href="/resources/css/style.css" rel="stylesheet" />

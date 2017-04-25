@@ -40,6 +40,7 @@ public class UserController {
             return modelAndView;
         } else {
             //session.addAttribute("loggedUser",username);
+            modelAndView.addObject("errorMsg", null);
             session.setAttribute("loggedUser", username);
             return new ModelAndView("redirect:/home", model);
         }
