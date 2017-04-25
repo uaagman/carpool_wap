@@ -2,6 +2,7 @@ package com.carpool.controller;
 
 import com.carpool.domain.User;
 import com.carpool.repository.UserRepository;
+import com.carpool.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,9 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    Validator<User> validator;
+
     @GetMapping("/login")
     public ModelAndView loginForm(){
         return new ModelAndView("login");
@@ -35,8 +39,8 @@ public class UserController {
             modelAndView.setViewName("login");
             return modelAndView;
         }else {
-            //session.addAttribute("LoggedUser",username);
-            session.setAttribute("LoggedUser",username);
+            //session.addAttribute("loggedUser",username);
+            session.setAttribute("loggedUser",username);
             return new ModelAndView("redirect:/home", model);
         }
     }
@@ -59,21 +63,19 @@ public class UserController {
                                    ModelMap model) {
 
         User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
-        userRepository.insert(user);
-        model.addAttribute("LoggedUser",email);
-        return new ModelAndView("redirect:/home", model);
-        /*if (!password.equals(rePassword)){
-            ModelAndView modelAndView = new ModelAndView("signup");
-            modelAndView.addObject("errorMsg", "Password Confirmation didnt matched!!!");
-            return modelAndView;
+        if (validator.validate(user)){
+            userRepository.insert(user);
+            model.addAttribute("loggedUser",email);
+            return new ModelAndView("redirect:/home", model);
         }else {
-
-        }*/
+            model.addAttribute("errorMsg", "User data posted is invalid");
+            return new ModelAndView("signup");
+        }
     }
 
     @GetMapping("/logout")
     public ModelAndView logout(ModelMap model, HttpSession session){
-        session.removeAttribute("LoggedUser");
+        session.removeAttribute("loggedUser");
         session.invalidate();
         return new ModelAndView("redirect:/home", model);
     }

@@ -19,7 +19,7 @@
                 <li><a href="javascript:;">Products</a></li>
                 <li><a href="<c:url value="myCart"/> ">Cart</a></li>
                 <c:if test="${LoggedUser ne null}">
-                    <li><a href="<c:url value="logout"/>">(${LoggedUser})Logout</a></li>
+                    <li><a href="<c:url value="logout"/>">(${loggedUser})Logout</a></li>
                 </c:if>
             </ul>
         </div>
