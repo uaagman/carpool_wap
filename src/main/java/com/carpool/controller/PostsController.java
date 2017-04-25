@@ -43,6 +43,22 @@ public class PostsController {
         return postsRepository.findByPostType(postType);
     }
 
+    //@RequestMapping(value = "/userIdpostType/{userId}{postType}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
+//    public Collection<Posts> findByUserId(
+//            @PathVariable("userId") String userId){
+//        return postsRepository.findByUserId(userId);
+//    }
+
+
+    @RequestMapping(value = "/users/{userId}/posts/{postType}", method = RequestMethod.GET)
+    public Collection<Posts> findByUserIdAndPostType(
+            @PathVariable("userId") String userId,
+            @PathVariable("postType") String postType){
+        return postsRepository.findByUserIdAndPostType(userId,postType);
+    }
+
+
 //    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 //    public void deletePostsById(@PathVariable("id") String id){
 //        postsRepository.removePostsByPostId(id);

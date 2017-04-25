@@ -1,0 +1,14 @@
+#newPost{
+    text-align: center;
+    font-size: 20px;
+    border: 2px gray solid;
+    padding:5px;
+    margin-left: 40%;
+    margin-right: auto;
+
+    display:inline
+}
+
+.container{
+    margin-top:20px;
+}
