@@ -16,7 +16,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<c:url value="/"/> ">Home</a></li>
-                <li><a href="<c:url value="/myposts"/>">My Posts</a></li>
+                <li><a href="<c:url value="/posts/myposts"/>">My Posts</a></li>
                 <li><a href="<c:url value="/weather"/>">WeatherService</a></li>
                 <c:if test="${LoggedUser ne null}">
 

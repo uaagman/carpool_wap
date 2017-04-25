@@ -4,12 +4,12 @@
 <%@include file="inc/nav.jsp"%>
 <div class="container">
     <div class="row">
-        <h1>MyPosts</h1>
+        <h1>My Posts</h1>
     </div>
     <div class="container">
         <div class="row">
-            <a class="col-xs-6" id="offerRide" href="javascript:;">Offering a ride</a>
-            <a class="col-xs-6 col-sm-6" id="askForRide" href="javascript:;">Asking for a ride</a>
+            <a class="col-xs-6" id="offerRideMy" href="javascript:;">Offering a ride</a>
+            <a class="col-xs-6 col-sm-6" id="askForRideMy" href="javascript:;">Asking for a ride</a>
         </div>
         <div class="row">
             <div id="bodyOfHome">
