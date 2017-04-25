@@ -3,27 +3,32 @@
  */
 
 $(function () {
+    var loggedUser=$("#loggedUser")[0].innerText;
+    if(!loggedUser)
+        return;
     $("#offerRideMy").click(function () {
         $(this).css("background-color","#92acf8");
         $("#askForRideMy").css("background-color","#b0dcea");
-        loadPosts("share","Ride Offers");
+        loadPosts("share",loggedUser,"Ride Offers");
     });
 
     $("#askForRideMy").click(function () {
         $(this).css("background-color","#92acf8");
         $("#offerRideMy").css("background-color","#b0dcea");
-        loadPosts("pool","Ride Requests");
+        loadPosts("pool",loggedUser,"Ride Requests");
     });
 
-    loadPosts("share","Ride Offers");
+    loadPosts("share",loggedUser,"Ride Offers");
 });
 
-function loadPosts(type,title) {
+function loadPosts(type,loggedUser,title) {
     $(".loading").show();
+    if(!loggedUser)
+        return;
     var heading = $("<h2>").addClass("title").html(title);
     var body = $("#bodyOfHome");
     body.html(heading);
-    var url = "http://localhost:8080/posts/postType/" + type;
+    var url = "http://localhost:8080/posts/users/" + loggedUser+"/posts/"+type;
     $.ajax({
         url: url,
         type:"get",
@@ -50,6 +55,15 @@ function loadPosts(type,title) {
                         ),
                         $('<br>'),
                         $("<button>", {
+                            "class": "deletePost",
+                            "postID": val.postId
+                        })
+                            .html("Delete").addClass("deleteBtn")
+                    ]);
+
+                divtag.append(
+                    [
+                        $("<button>", {
                             "class": "showComments",
                             "postID": val.postId
                         })
@@ -57,6 +71,7 @@ function loadPosts(type,title) {
                     ]);
                 body.append(divtag);
             })
+            $(".deletePost").click(deletePostFunction);
         },
         error:function (xhr,status,exception) {
             var error = $("<h5>").addClass("error").html("Error Loading Posts");
@@ -67,4 +82,30 @@ function loadPosts(type,title) {
         }
     });
 
+    function deletePostFunction(ev){
+        var postID = $(this).attr('postID');
+        var divAttach=$(this).closest("div");
+       if(!postID)
+            return;
+        var url = "http://localhost:8080/posts/" + postID;
+        $.ajax({
+            url: url,
+            type:"delete",
+            // data:{
+            //     "postType":type
+            // },
+            success:function (data) {
+                //alert("Delete successfull");
+                location.reload();
+            },
+            error:function (xhr,status,exception) {
+                var error = $("<h5>").addClass("error").html("Error Deleting Posts");
+                body.append(error);
+            },
+            complete:function () {
+                $(".loading").hide();
+            }
+        });
+        $("loading").show();
+    }
 }

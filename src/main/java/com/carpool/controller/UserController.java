@@ -69,7 +69,8 @@ public class UserController {
         User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
         if (validator.validate(user)) {
             userRepository.insert(user);
-            model.addAttribute("loggedUser", email);
+            //model.addAttribute("loggedUser", email);
+            session.setAttribute("loggedUser", email);
             return new ModelAndView("redirect:/home", model);
         } else {
             model.addAttribute("errorMsg", "User data posted is invalid");

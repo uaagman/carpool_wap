@@ -32,9 +32,9 @@ public class PostsService {
         return this.postsRepository.findByUserIdAndPostType(userId,postType);
     }
 
-//    public void removePostsById(String id) {
-//        this.postsRepository.removePostsByPostId(id);
-//    }
+    public void removePostsById(String id) {
+        this.postsRepository.removePostsByPostId(id);
+    }
 //
 //    public void updatePosts(Posts student){
 //        this.postsRepository.updatePosts(student);
