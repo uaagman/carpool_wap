@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form method="post" action="/newpost" class="signup">
+            <form method="post" action="/posts/newpost" class="signup">
 
                 <div class="form-group">
                     <label for="postType">Postype</label>
