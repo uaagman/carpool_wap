@@ -4,16 +4,15 @@ import com.carpool.domain.User;
 import com.carpool.repository.UserRepository;
 import com.carpool.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.awt.*;
-import java.util.List;
 
 /**
  * Created by Crawlers on 4/24/2017.
@@ -56,7 +55,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ModelAndView signupPost(@RequestParam String fullName,
+    public ModelAndView signupPost(@RequestParam String userId,
+                                   @RequestParam String fullName,
                                    @RequestParam String gender,
                                    @RequestParam String state,
                                    @RequestParam String city,
@@ -68,25 +68,39 @@ public class UserController {
                                    @RequestParam String rePassword,
                                    ModelMap model, HttpSession session) {
 
-        User user = new User(fullName, gender, state, city, street, zipCode, birthYear, email, password);
+        User user = new User(userId, fullName, gender, state, city, street, zipCode, birthYear, email, password);
         if (validator.validate(user)) {
             if (password.equals(rePassword)){
-                userRepository.insert(user);
-                model.addAttribute("loggedUser", email);
+                System.out.println("userID:"+userId);
+                System.out.println("userID isEmpty:"+userId.isEmpty());
+                if (userId==null||userId.isEmpty()){
+                    user.setUserId(null);
+                    userRepository.insert(user);
+                    session.setAttribute("loggedUser", email);
+                }else {
+                    System.out.println("inside save");
+                    userRepository.save(user);
+                }
                 return new ModelAndView("redirect:/home", model);
             }else {
+                //model.addAttribute("user", user);
                 model.addAttribute("errorMsg", "Password Confirmation didn't matched!!!");
-                return new ModelAndView("signup");
+                //return new ModelAndView("signup");
             }
         } else {
+            //model.addAttribute("user", user);
             model.addAttribute("errorMsg", "Data posted is invalid!!!");
-            return new ModelAndView("signup");
+            //return new ModelAndView("signup");
         }
+        model.addAttribute("user", user);
+        //model.addAttribute("errorMsg", "Data posted is invalid!!!");
+        return new ModelAndView("signup");
     }
 
     @GetMapping("/profile")
-    public ModelAndView profile(HttpSession httpSession){
-
+    public ModelAndView profile(ModelMap model, HttpSession httpSession){
+        User user = userRepository.findByEmail((String)httpSession.getAttribute("loggedUser"));
+        model.addAttribute("user", user);
         return new ModelAndView("signup");
     }
 
@@ -105,11 +119,5 @@ public class UserController {
         }
         return userRepository.findByEmail(email).getZipCode();
     }
-
-    @GetMapping("/profile")
-    public ModelAndView profile(){
-        return null;
-    }
-
 
 }
