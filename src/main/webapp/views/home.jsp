@@ -5,6 +5,8 @@
 <%@include file="inc/nav.jsp" %>
 
 <div class="container">
+    <input type="hidden" id="pageCount" value="0"/>
+    <input type="hidden" id="postType" value="share"/>
     <div class="row">
         <a class="col-xs-6" id="offerRide" href="javascript:;">Offering a ride</a>
         <a class="col-xs-6 col-sm-6" id="askForRide" href="javascript:;">Asking for a ride</a>

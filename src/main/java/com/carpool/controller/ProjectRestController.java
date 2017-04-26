@@ -2,15 +2,20 @@ package com.carpool.controller;
 
 import com.carpool.domain.Comment;
 import com.carpool.domain.Like;
+import com.carpool.domain.Posts;
 import com.carpool.domain.User;
 import com.carpool.repository.CommentRepository;
 import com.carpool.repository.LikeRepository;
+import com.carpool.repository.PostsRepository;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +34,9 @@ public class ProjectRestController {
 
     @Autowired
     LikeRepository likeRepository;
+
+    @Autowired
+    PostsRepository postsRepository;
 
     @GetMapping("/getZipOfLoggedUser")
     public Integer getZipOfLoggedUser(HttpSession session) {
@@ -92,5 +100,11 @@ public class ProjectRestController {
         }
         map.put("likeCount", likeRepository.findByPostId(postId).size());
         return map;
+    }
+
+
+    @GetMapping(value = "/postType/{postType}/{page}/{size}")
+    public Collection<Posts> findByPostTypeBySize(@PathVariable("postType") String postType, @PathVariable("page") Integer page, @PathVariable("size") Integer size){
+        return postsRepository.findByPostType(postType,new PageRequest(page,size, new Sort(Sort.Direction.DESC, "datecreated")));
     }
 }

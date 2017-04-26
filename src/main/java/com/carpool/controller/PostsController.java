@@ -6,6 +6,7 @@ import com.carpool.repository.PostsRepository;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -47,7 +48,7 @@ public class PostsController {
 
     @RequestMapping(value = "/postType/{postType}", method = RequestMethod.GET)
     public Collection<Posts> findByPostType(@PathVariable("postType") String postType){
-        return postsRepository.findByPostType(postType,new PageRequest(1,1));
+        return postsRepository.findByPostType(postType,new PageRequest(0,100, new Sort(Sort.Direction.DESC, "datecreated")));
     }
 
     @RequestMapping(value = "/postTypeRange/{postType}/fromrange/{fromId}/torange/{toId}", method = RequestMethod.GET)

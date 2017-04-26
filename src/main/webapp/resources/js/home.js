@@ -6,12 +6,16 @@ $(function () {
     $("#offerRide").click(function () {
         $(this).css("background-color", "#92acf8");
         $("#askForRide").css("background-color", "#b0dcea");
+        $("#postType").val("share");
+        $("#pageCount").val("0");
         loadPosts("share", "Ride Offers");
     });
 
     $("#askForRide").click(function () {
-        $(this).css("background-color", "#92acf8");
+        $(this).attr("active","1").css("background-color", "#92acf8");
         $("#offerRide").css("background-color", "#b0dcea");
+        $("#postType").val("share");
+        $("#pageCount").val("0");
         loadPosts("pool", "Ride Requests");
     });
 
@@ -22,7 +26,7 @@ $(function () {
         var heading = $("<h2>").addClass("title").html(title);
         var body = $("#bodyOfHome");
         body.html(heading);
-        var url = "/posts/postType/" + type;
+        var url = "/js/postType/" + type + "/0/25";
         $.ajax({
             url: url,
             type: "get",
@@ -173,4 +177,36 @@ $(function () {
             self.attr("disabled", false);
         });
     }
+
+
+
+    // infinite scroll
+    function element_in_scroll(elem)
+    {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
+
+    $(document).scroll(function(e){
+        if (element_in_scroll(".posts:last")) {
+            $(document).unbind('scroll');
+            var pageCount = parseInt($("#pageCount").val()) + parseInt(1);
+            $("#pageCount").val(pageCount);
+            var postType = $("#postType").val();
+            $.ajax({
+                type: "get",
+                url: "/js/postType/" + postType + "/"+pageCount+"/25",
+                success: function (data) {
+                    getUserAndFillData(data);
+                    $(document).bind('scroll');
+                }
+            });
+        }
+    });
+
 });

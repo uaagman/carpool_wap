@@ -25,7 +25,8 @@ public class PostsService {
     }
 
     public Collection<Posts> findByPostType(String postType){
-        return this.postsRepository.findByPostType(postType);
+//        return this.postsRepository.findByPostType(postType);
+        return null;
     }
 
     public Collection<Posts> findByUserIdAndPostType(String userId,String postType){
