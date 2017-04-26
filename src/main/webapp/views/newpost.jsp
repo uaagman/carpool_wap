@@ -1,15 +1,14 @@
 <%@include file="inc/header.jsp" %>
 <title>Login - Carpool</title>
 <link href="/resources/css/login.css" rel="stylesheet" type="text/css"/>
-
 </head>
 <body>
 <%@include file="inc/nav.jsp" %>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form method="post" action="/newpost" class="signup">
-                <div class="error">${errorMsg}</div>
+            <form method="post" action="/posts/newpost" class="signup">
+
                 <div class="form-group">
                     <label for="postType">Postype</label>
                     <select name="postType" id="postType" required="required" class="form-control">
@@ -51,10 +50,7 @@
                         <input type="text" name="fromZip" id="fromZip" required="required" class="form-control"/>
                     </div>
                 </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>To:</legend>
+                <hr>
                 <div id="toAddress">
                     <div class="form-group">
                         <label for="toState">State</label>
@@ -85,6 +81,7 @@
     </div>
 </div>
 
+<script src="resources/js/login.js"></script>
 <%@include file="inc/footer.jsp" %>
 <script src="resources/js/dateTimePicker.js" rel="script" type="text/javascript"></script>
 </body>

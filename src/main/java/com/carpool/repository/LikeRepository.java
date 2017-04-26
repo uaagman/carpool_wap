@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface LikeRepository extends MongoRepository<Like, String> {
     public List<Like> findByPostId(String postId);
+    public Like findByPostIdAndUserId(String postId,String userId);
 }
