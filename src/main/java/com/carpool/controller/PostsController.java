@@ -5,18 +5,19 @@ import com.carpool.domain.User;
 import com.carpool.repository.PostsRepository;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import com.carpool.validator.Validator;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Crawlers on 4/24/2017.
@@ -49,12 +50,28 @@ public class PostsController {
         return postsRepository.findByPostType(postType,new PageRequest(1,1));
     }
 
-    //@RequestMapping(value = "/userIdpostType/{userId}{postType}", method = RequestMethod.GET)
-//    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
-//    public Collection<Posts> findByUserId(
-//            @PathVariable("userId") String userId){
-//        return postsRepository.findByUserId(userId);
-//    }
+    @RequestMapping(value = "/postTypeRange/{postType}/fromrange/{fromId}/torange/{toId}", method = RequestMethod.GET)
+    public Collection<Posts> findByPostTypeRange(
+            @PathVariable("postType") String postType,
+            @PathVariable("fromId") String fromId,
+            @PathVariable("toId") String toId){
+        return postsRepository.findByPostTypeRange(postType,fromId,toId);
+    }
+
+    @RequestMapping(value = "usertyperange/{userId}/postTypeRange/{postType}/fromrange/{fromId}/torange/{toId}", method = RequestMethod.GET)
+    public Collection<Posts> findByUserIdPostTypeRange(
+            @PathVariable("userId") String userId,
+            @PathVariable("postType") String postType,
+            @PathVariable("fromId") String fromId,
+            @PathVariable("toId") String toId){
+        User user= userRepository.findByEmail(userId);
+        if(user!=null){
+            return postsRepository.findByUserIdPostTypeRange(user.getUserId(),postType,fromId,toId);
+        }
+        else
+            return null;
+
+    }
 
 
     @RequestMapping(value = "/users/{userId}/posts/{postType}", method = RequestMethod.GET)
@@ -69,6 +86,19 @@ public class PostsController {
             return null;
     }
 
+
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    public Long count(){
+        return postsRepository.count();
+    }
+
+    @RequestMapping(value = "/fromrange/{fromId}/torange/{toId}", method = RequestMethod.GET)
+    public Collection<Posts> getRange(
+            @PathVariable("fromId") String fromId,
+            @PathVariable("toId") String toId
+    ){
+        return postsRepository.getRange(fromId,toId);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deletePostsById(@PathVariable("id") String id){
