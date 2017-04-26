@@ -54,7 +54,7 @@
                            class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label for="street">Stret</label>
+                    <label for="street">Street</label>
                     <input type="text" name="street" id="street" value="${user.street}" required="required"
                            class="form-control"/>
                 </div>
