@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.carpool.domain.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.carpool.validator.Validator;
@@ -68,8 +69,8 @@ public class PostsManupulationController {
         //Posts posts1 = new Posts(userId,post,pType,LocalDateTime.now(),LocalDateTime.now());
         User user= userRepository.findByEmail(userId);
         Posts posts = new Posts( user.getUserId(), post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
-
-        if (validator.validate(posts)) {
+        Map<Boolean, String> validationMap = validator.validate(posts);
+        if ((boolean)validationMap.keySet().toArray()[0]) {
             if("22204".equals(toZip)){ //It's only for creating many posts to populate database
                 for(int i=0;i<99;i++){
                     postType=((int)(Math.random()*100) % 2 == 0) ? "pool" : "share";
