@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * Created by Crawlers on 4/24/2017.
@@ -67,7 +68,8 @@ public class UserController {
                                    @RequestParam String rePassword,
                                    ModelMap model, HttpSession session) {
         User user = new User(userId, fullName, gender, state, city, street, zipCode, birthYear, email, password);
-        if (validator.validate(user)) {
+        Map<Boolean, String> validationMap = validator.validate(user);
+        if ((boolean)validationMap.keySet().toArray()[0]) {
             if (password.equals(rePassword)){
                 System.out.println("userID:"+userId);
                 System.out.println("userID isEmpty:"+userId.isEmpty());
@@ -81,17 +83,13 @@ public class UserController {
                 }
                 return new ModelAndView("redirect:/home", model);
             }else {
-                //model.addAttribute("user", user);
                 model.addAttribute("errorMsg", "Password Confirmation didn't matched!!!");
-                //return new ModelAndView("signup");
             }
         } else {
-            //model.addAttribute("user", user);
+            model.addAttribute("errorJson", validationMap.get(validationMap.keySet().toArray()[0]));
             model.addAttribute("errorMsg", "Data posted is invalid!!!");
-            //return new ModelAndView("signup");
         }
         model.addAttribute("user", user);
-        //model.addAttribute("errorMsg", "Data posted is invalid!!!");
         return new ModelAndView("signup");
     }
 
