@@ -39,6 +39,9 @@
     font-size: 1.5em;
     margin: 5px 0;
 }
+.posts .clearfix.c1{
+    font-size: 1em !important;
+}
 .likeComment{
     margin: 5% 0;
 }

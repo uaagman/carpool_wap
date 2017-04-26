@@ -46,9 +46,9 @@ $(function () {
                 type: "get",
                 success: function (data1) {
                     if (data1) {
-                        var div = $("<div>").addClass("posts col-md-6").attr("id",val.postId);
+                        var div = $("<div>").addClass("posts col-md-6").attr("id", val.postId);
                         var title = $("<div>").addClass("title row").append([
-                            $("<span>").addClass("postBy col-sm-6").html(data1.fullName + " ( <small>" +data1.email+"</small> )"),
+                            $("<span>").addClass("postBy col-sm-6").html(data1.fullName + " ( <small>" + data1.email + "</small> )"),
                             $("<span>").addClass("col-sm-6").html(val.datecreated.year + "-" + val.datecreated.month + "-" + val.datecreated.dayOfMonth)
                         ]);
                         var body = $("<div>").addClass("clearfix").html(val.post);
@@ -70,23 +70,23 @@ $(function () {
                         var likeCount = 0;
                         var allComments = $("<div>").addClass("allComments");
                         $.ajax({
-                            url:"/js/getLnC/" + val.postId,
-                            type:"get",
-                            async:false,
-                            success:function (d) {
+                            url: "/js/getLnC/" + val.postId,
+                            type: "get",
+                            async: false,
+                            success: function (d) {
                                 likeCount = d.likes;
-                                $.each(d.comments,function(k1,v1){
+                                $.each(d.comments, function (k1, v1) {
                                     $.ajax({
                                         url: "/js/getEmailAndNameFromId/" + v1.userId,
                                         type: "get",
                                         success: function (d3) {
-                                            var ddd = $("<div>").addClass("individualComment").attr("id",v1.commentId);
+                                            var ddd = $("<div>").addClass("individualComment").attr("id", v1.commentId);
                                             var title1 = $("<div>").addClass("title row").append([
-                                                $("<span>").addClass("postBy col-sm-6").html(d3.fullName + " ( <small>" +d3.email+"</small> )"),
+                                                $("<span>").addClass("postBy col-sm-6").html(d3.fullName + " ( <small>" + d3.email + "</small> )"),
                                                 $("<span>").addClass("col-sm-6").html(v1.dateCreated.year + "-" + v1.dateCreated.month + "-" + v1.dateCreated.dayOfMonth)
                                             ]);
-                                            var body1 = $("<div>").addClass("clearfix").html(v1.comment);
-                                            ddd.append([title1,body1]);
+                                            var body1 = $("<div>").addClass("clearfix c1").html(v1.comment);
+                                            ddd.append([title1, body1]);
                                             allComments.append(ddd);
                                         }
                                     });
@@ -95,54 +95,82 @@ $(function () {
                         });
 
                         var comments = $("<div>").addClass("row commentBox");
-                        var commentBox = $("<div>").addClass("col-sm-10").append($("<textarea>").addClass("postComment form-control").attr("placeholder","Write Comment"));
+                        var commentBox = $("<div>").addClass("col-sm-10").append($("<textarea>").addClass("postComment form-control").attr("placeholder", "Write Comment"));
                         var button = $("<div>").addClass("col-sm-2").append([
-                            $("<button>").addClass("btn btn-default btn-sm likeComment").html("Like ("+likeCount+")"),
+                            $("<button>").addClass("btn btn-default btn-sm likeComment").html("Like (" + likeCount + ")").click(saveLike1),
                             $("<br>"),
-                            $("<button>").addClass("btn btn-default btn-sm submitComment").html("Post")
+                            $("<button>").addClass("btn btn-default btn-sm submitComment").html("Post").click(submitComment1)
                         ]);
-                        comments.append([commentBox,button]);
-                        div.append([title, body, body1,allComments,comments]);
+                        comments.append([commentBox, button]);
+                        div.append([title, body, body1, allComments, comments]);
                         $("#bodyOfHome").append(div);
-                        $(".posts:even").css("border-right","3px solid darkblue");
-                        $(".submitComment").click(submitComment);
+                        $(".posts:even").css("border-right", "3px solid darkblue");
+                        /*$(".submitComment").on("click", submitComment1);
+                        $(".likeComment").on("click", saveLike1);*/
                     }
                 }
             });
         });
     }
 
-    function submitComment(evt){
+    function submitComment1(evt) {
+        evt.preventDefault();
         var self = $(this);
+        self.attr("disabled", true);
         var postId = self.closest(".posts").attr("id");
         var comment = self.closest(".posts").find(".postComment ").val();
-        if(comment === ""){
+        if (comment === "") {
             self.closest(".posts").find(".postComment ").focus();
+            self.attr("disabled", false);
             return false;
         } else {
             $.ajax({
-                url:"/js/addComment",
-                data:{
-                    postId : postId,
-                    comment : comment
+                url: "/js/addComment",
+                async: false,
+                data: {
+                    postId: postId,
+                    comment: comment
                 },
-                type:"post",
-                success:function(data){
-                    if(data){
-                        var ddd = $("<div>").addClass("individualComment").attr("id",data.comment.commentId);
+                type: "post",
+                success: function (data) {
+                    if (data) {
+                        var ddd = $("<div>").addClass("individualComment").attr("id", data.comment.commentId);
                         var title = $("<div>").addClass("title row").append([
-                            $("<span>").addClass("postBy col-sm-6").html(data.user.fullName + " ( <small>" +data.user.email+"</small> )"),
+                            $("<span>").addClass("postBy col-sm-6").html(data.user.fullName + " ( <small>" + data.user.email + "</small> )"),
                             $("<span>").addClass("col-sm-6").html(data.comment.dateCreated.year + "-" + data.comment.dateCreated.month + "-" + data.comment.dateCreated.dayOfMonth)
                         ]);
-                        var body = $("<div>").addClass("clearfix").html(data.comment.comment);
-                        ddd.append([title,body]);
+                        var body = $("<div>").addClass("clearfix c1").html(data.comment.comment);
+                        ddd.append([title, body]);
                         self.closest(".posts").find(".allComments").prepend(ddd);
                         self.closest(".posts").find(".postComment ").val("");
-                    }else{
+                    } else {
                         alert("error adding comment");
                     }
+                },
+                complete: function () {
+                    self.attr("disabled", false);
                 }
             })
         }
+    }
+
+    function saveLike1(evt) {
+        var self = $(this);
+        evt.preventDefault();
+        self.attr("disabled", true);
+        var postId = self.closest(".posts").attr("id");
+        $.post("/js/addLike", {postId: postId}).done(function (data) {
+            if (data) {
+                if (data.errorCode) {
+                    alert("You have already liked");
+                } else {
+                    self.html("Like (" + data.likeCount + ")");
+                }
+            } else {
+                alert("error adding comment");
+            }
+        }).always(function () {
+            self.attr("disabled", false);
+        });
     }
 });
