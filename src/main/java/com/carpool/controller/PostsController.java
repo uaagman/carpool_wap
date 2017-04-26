@@ -5,6 +5,7 @@ import com.carpool.domain.User;
 import com.carpool.repository.PostsRepository;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,7 +46,7 @@ public class PostsController {
 
     @RequestMapping(value = "/postType/{postType}", method = RequestMethod.GET)
     public Collection<Posts> findByPostType(@PathVariable("postType") String postType){
-        return postsRepository.findByPostType(postType);
+        return postsRepository.findByPostType(postType,new PageRequest(1,1));
     }
 
     //@RequestMapping(value = "/userIdpostType/{userId}{postType}", method = RequestMethod.GET)

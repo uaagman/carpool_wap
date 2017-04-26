@@ -1,5 +1,5 @@
 <%@include file="inc/header.jsp" %>
-<title>Login - Carpool</title>
+<title>New Post - Carpool</title>
 <link href="/resources/css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -81,7 +81,6 @@
     </div>
 </div>
 
-<script src="resources/js/login.js"></script>
 <%@include file="inc/footer.jsp" %>
 <script src="resources/js/dateTimePicker.js" rel="script" type="text/javascript"></script>
 </body>

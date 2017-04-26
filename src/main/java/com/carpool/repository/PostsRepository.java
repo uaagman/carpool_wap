@@ -1,6 +1,7 @@
 package com.carpool.repository;
 
 import com.carpool.domain.Posts;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public interface PostsRepository extends MongoRepository<Posts, String> {
     public List<Posts> findByUserId(String userId);
     public Posts findByDatecreated(LocalDateTime datecreated);
     public Posts findByDateupdated(LocalDateTime dateupdated);
-    public List<Posts> findByPostType(String postType);
+    public List<Posts> findByPostType(String postType, Pageable pageable);
     public List<Posts> findByUserIdAndPostType(String userId, String postType);
     public List<Posts> findAll();
    // public Posts insert(Posts posts);
