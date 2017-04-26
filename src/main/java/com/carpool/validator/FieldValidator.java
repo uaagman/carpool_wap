@@ -15,7 +15,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +25,8 @@ import java.util.regex.Pattern;
 public class FieldValidator<T> implements Validator<T> {
     private static final String CAUSED_MESSAGE = "Caused by invalid field value";
 
-    public boolean validate(T t) {
+    public Map<Boolean, String> validate(T t) {
+        Map map = new HashMap<>();
         List<ErrorMessage> errorMessages = new ArrayList<>();
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         boolean result = true;
@@ -174,8 +177,9 @@ public class FieldValidator<T> implements Validator<T> {
             }
 
         }
+        String json = null;
         if (!result) {
-            String json = null;
+
             try {
                 json = ow.writeValueAsString(errorMessages);
             } catch (JsonProcessingException e) {
@@ -183,8 +187,10 @@ public class FieldValidator<T> implements Validator<T> {
             }
             System.out.println("Validation Errors:" + json);
             //return new ValidationHandler(json);
+
         }
+        map.put(result, json);
         System.out.println("Validation Result:" + result);
-        return result;
+        return map;
     }
 }
