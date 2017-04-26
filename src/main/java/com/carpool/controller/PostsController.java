@@ -48,7 +48,7 @@ public class PostsController {
 
     @RequestMapping(value = "/postType/{postType}", method = RequestMethod.GET)
     public Collection<Posts> findByPostType(@PathVariable("postType") String postType){
-        return postsRepository.findByPostType(postType,new PageRequest(0,100, new Sort(Sort.Direction.DESC, "datecreated")));
+        return postsRepository.findByPostType(postType);
     }
 
     @RequestMapping(value = "/postTypeRange/{postType}/fromrange/{fromId}/torange/{toId}", method = RequestMethod.GET)

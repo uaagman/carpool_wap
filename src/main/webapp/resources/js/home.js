@@ -14,7 +14,7 @@ $(function () {
     $("#askForRide").click(function () {
         $(this).attr("active","1").css("background-color", "#92acf8");
         $("#offerRide").css("background-color", "#b0dcea");
-        $("#postType").val("share");
+        $("#postType").val("pool");
         $("#pageCount").val("0");
         loadPosts("pool", "Ride Requests");
     });
@@ -53,22 +53,25 @@ $(function () {
                         var div = $("<div>").addClass("posts col-md-6").attr("id", val.postId);
                         var title = $("<div>").addClass("title row").append([
                             $("<span>").addClass("postBy col-sm-6").html(data1.fullName + " ( <small>" + data1.email + "</small> )"),
-                            $("<span>").addClass("col-sm-6").html(val.datecreated.year + "-" + val.datecreated.month + "-" + val.datecreated.dayOfMonth)
+                            $("<span>").addClass("col-sm-6").html(val.datecreated.year + "-" + val.datecreated.month + "-" + val.datecreated.dayOfMonth + " "+ val.datecreated.hour+":"+val.datecreated.minute)
                         ]);
                         var body = $("<div>").addClass("clearfix").html(val.post);
                         var body1 = $("<div>").addClass("row locations");
                         body1.append([
-                            $("<div>").addClass("col-md-6 from").append([
+                            $("<div>").addClass("col-md-5 from").append([
                                 $("<div>").addClass("title").html("From Location"),
                                 $("<div>").html("City : " + val.fromCity),
                                 $("<div>").html("State : " + val.fromState),
                                 $("<div>").html("Zip : " + val.fromZip)
                             ]),
-                            $("<div>").addClass("col-md-6 to").append([
+                            $("<div>").addClass("col-md-5 to").append([
                                 $("<div>").addClass("title").html("To Location"),
                                 $("<div>").html("City : " + val.toCity),
                                 $("<div>").html("State : " + val.toState),
                                 $("<div>").html("Zip : " + val.toZip)
+                            ]),
+                            $("<div>").addClass("col-md-2").append([
+                                $("<button>").addClass("btn btn-xs btn-default").html("Weather").click({from: val.fromZip, to: val.toZip},showWeatherMap)
                             ])
                         ]);
                         var likeCount = 0;
@@ -194,7 +197,7 @@ $(function () {
 
     $(document).scroll(function(e){
         if (element_in_scroll(".posts:last")) {
-            $(document).unbind('scroll');
+            $(window).off('scroll');
             var pageCount = parseInt($("#pageCount").val()) + parseInt(1);
             $("#pageCount").val(pageCount);
             var postType = $("#postType").val();
@@ -203,10 +206,15 @@ $(function () {
                 url: "/js/postType/" + postType + "/"+pageCount+"/25",
                 success: function (data) {
                     getUserAndFillData(data);
-                    $(document).bind('scroll');
+                    $(window).on('scroll');
                 }
             });
         }
     });
+
+    function showWeatherMap(event) {
+        var fromZip = event.data.from;
+        var toZip = event.data.to;
+    }
 
 });

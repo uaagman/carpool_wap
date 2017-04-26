@@ -66,7 +66,6 @@ public class UserController {
                                    @RequestParam String password,
                                    @RequestParam String rePassword,
                                    ModelMap model, HttpSession session) {
-        String userId = null;
         User user = new User(userId, fullName, gender, state, city, street, zipCode, birthYear, email, password);
         if (validator.validate(user)) {
             if (password.equals(rePassword)){

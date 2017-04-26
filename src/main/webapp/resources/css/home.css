@@ -34,7 +34,8 @@
 }
 .posts{
     border-bottom: 3px dashed darkblue;
-    max-height: 350px;
+    max-height: 300px;
+    min-height: 300px;
     overflow-y: scroll;
 }
 .posts .clearfix{

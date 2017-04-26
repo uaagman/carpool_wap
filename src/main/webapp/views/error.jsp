@@ -13,7 +13,7 @@
                     Sorry! The requested page not found!
                 </div><hr/>
                 <div>
-                    <a href="<c:url value="/"/> " class="btn btn-primary">Take Me Home</a>
+                    <a href="<c:url value="/home"/> " class="btn btn-primary">Take Me Home</a>
                 </div>
             </div>
         </div>

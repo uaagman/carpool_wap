@@ -2,7 +2,6 @@ package com.carpool.repository;
 
 import com.carpool.domain.Posts;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -18,18 +17,14 @@ public interface PostsRepository extends MongoRepository<Posts, String>, PostsRe
     public List<Posts> findByUserId(String userId);
     public Posts findByDatecreated(LocalDateTime datecreated);
     public Posts findByDateupdated(LocalDateTime dateupdated);
-
-    public List<Posts> findByPostType(String postType, Pageable pageable);
-
+    public List<Posts> findByPostType(String postType);
+    public List<Posts> findByPostTypeOrderByDatecreatedDesc(String postType,Pageable pageable);
     public List<Posts> findByUserIdAndPostType(String userId, String postType);
     public List<Posts> findAll();
-
     @Query(value = "{ 'datecreated' : {$gte : ?0, $lte: ?1 }}")
     public List<Posts> findbyCreatedAtBetween(Date from, Date to);
-
     @Query(value = "{ 'postId' : {$gte : ?0, $lte: ?1 }}")
     public List<Posts> findbyPostIdRange(String from, String to);
-
     @Query(value = "{ 'postId' : {$gte : ?0, $lte: ?1 }}")
     public List<Posts> findByPostIdBetween(String from, String to);
     //@Query(value = "{ 'postId' : {$gte : ?0, $lte: ?1 }}")

@@ -105,6 +105,6 @@ public class ProjectRestController {
 
     @GetMapping(value = "/postType/{postType}/{page}/{size}")
     public Collection<Posts> findByPostTypeBySize(@PathVariable("postType") String postType, @PathVariable("page") Integer page, @PathVariable("size") Integer size){
-        return postsRepository.findByPostType(postType,new PageRequest(page,size, new Sort(Sort.Direction.DESC, "datecreated")));
+        return postsRepository.findByPostTypeOrderByDatecreatedDesc(postType,new PageRequest(page,size));
     }
 }

@@ -3,7 +3,7 @@
 <link href="/resources/css/home.css" rel="stylesheet"/>
 </head><body>
 <%@include file="inc/nav.jsp" %>
-
+<msg:showMessage text="test" color="red"/>
 <div class="container">
     <input type="hidden" id="pageCount" value="0"/>
     <input type="hidden" id="postType" value="share"/>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>Message Tag</short-name>
+    <tag>
+        <description>Generates a label</description>
+        <name>showMessage</name>
+        <tag-class>com.carpool.customTag.ShowMessageTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>color</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>text</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

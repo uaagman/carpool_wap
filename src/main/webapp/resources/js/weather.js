@@ -54,18 +54,19 @@ $(function () {
         $.each(a, function (key, value) {
             var d1 = $("<div>").addClass("weatherTab row").html($("<h4>").addClass("col-xs-12").html(key));
             $.each(value, function (k, v) {
-                console.log(v);
                 var date = new Date(v.dt * 1000);
                 var d = $("<div>").addClass("col-md-4 col-sm-6 col-xs-12 weatherCols");
                 d.append($("<div>").html("Time: " + date.getUTCHours() + ":" + date.getUTCMinutes()));
-                d.append($("<div>").html("Temp: " + v.main.temp+" &#8490;"));
+                d.append($("<div>").html("Temp: " + (parseFloat(v.main.temp)- 273.15).toPrecision(4) +" &#8451;"));
                 d.append($("<div>").html(v.weather[0].main + " (" + v.weather[0].description + ")"));
-                d.append($("<div>").html("Wind: " + v.wind.speed + " (" + v.wind.deg + "&deg;)"));
-                if (v.rain) {
-                    d.append($("<div>").html("Rain: " + v.rain["3h"]));
+                d.append($("<div>").html("Wind: " + v.wind.speed + " m/s (" + v.wind.deg + "&deg;)"));
+                if (v.rain['3h']) {
+                    d.append($("<div>").html("Rain: " + parseFloat(v.rain["3h"]).toPrecision(4) + " mm"));
                 } else {
                     d.append($("<div>").html("Rain: -"));
                 }
+                d.append($("<div>").html("Humidity: " + v.main.humidity +"%"));
+                d.append($("<div>").html("Pressure: " + v.main.pressure +" hPa"));
                 d1.append(d);
             });
             $(".dataBody").append(d1);
@@ -112,6 +113,6 @@ $(function () {
     }
 
     $("#searchZip").click(function () {
-        getWeatherByZip($("#inputZip").val());
+        getWeatherByZip(($("#inputZip").val()).trim());
     })
 });
