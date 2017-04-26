@@ -54,7 +54,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ModelAndView signupPost(@RequestParam String fullName,
+    public ModelAndView signupPost(@RequestParam String userId,
+                                   @RequestParam String fullName,
                                    @RequestParam String gender,
                                    @RequestParam String state,
                                    @RequestParam String city,
