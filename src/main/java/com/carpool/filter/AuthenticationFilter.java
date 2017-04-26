@@ -38,7 +38,7 @@ public class AuthenticationFilter implements Filter {
         if (containPath || user!=null){
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }else {
-            httpServletResponse.sendRedirect("login");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login");
         }
     }
 
