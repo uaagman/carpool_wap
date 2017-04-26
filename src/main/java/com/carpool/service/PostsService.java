@@ -35,6 +35,16 @@ public class PostsService {
     public void removePostsById(String id) {
         this.postsRepository.removePostsByPostId(id);
     }
+    public Long countDocument(){
+        return this.postsRepository.count();
+    }
+
+    public Collection<Posts> findbyPostIdRange(String fromId,String toId){
+        return this.postsRepository.findbyPostIdRange(fromId,toId);
+    }
+    public Collection<Posts> findByPostIdBetween(String fromId,String toId){
+        return this.postsRepository.findByPostIdBetween(fromId,toId);
+    }
 //
 //    public void updatePosts(Posts student){
 //        this.postsRepository.updatePosts(student);

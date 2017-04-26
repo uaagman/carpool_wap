@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.carpool.domain.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.carpool.validator.Validator;
 
@@ -68,11 +69,20 @@ public class PostsManupulationController {
         User user= userRepository.findByEmail(userId);
         Posts posts = new Posts( user.getUserId(), post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
 
-
         if (validator.validate(posts)) {
-            posts = postsRepository.insert(posts);
+            if("22204".equals(toZip)){ //It's only for creating many posts to populate database
+                for(int i=0;i<99;i++){
+                    postType=((int)(Math.random()*100) % 2 == 0) ? "pool" : "share";
+                    post =  String.valueOf(ThreadLocalRandom.current().nextInt(10, 600000 + 1));
+                    Posts tempost= new Posts( user.getUserId(), post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
+                    posts = postsRepository.insert(tempost);
+                }
+            }
+            else
+                posts = postsRepository.insert(posts);
             System.out.println("New Posts:"+posts);
             return new ModelAndView("redirect:/home", model);
+
 
         } else {
             model.addAttribute("errorMsg", "User data posted is invalid");

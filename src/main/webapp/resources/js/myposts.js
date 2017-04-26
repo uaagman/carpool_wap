@@ -1,7 +1,8 @@
 /**
  * Created by ashok on 4/24/2017.
  */
-
+window.counter = 0;
+window.bottomflag=0;
 $(function () {
     var loggedUser=$("#loggedUser")[0].innerText;
     if(!loggedUser)
@@ -19,6 +20,27 @@ $(function () {
     });
 
     loadPosts("share",loggedUser,"Ride Offers");
+
+
+
+    $(document).scroll(function(e){
+
+        if ($(window).scrollTop() >= ($(document).height() - $(window).height())){
+            // processing = true; //sets a processing AJAX request flag
+            // $.post("url", '<params>', function(data){ //or $.ajax, $.get, $.load etc.
+                window.counter=1;
+
+                if(window.bottomflag!==1){
+                    window.bottomflag=1;
+                 $("#offerRideMy").click();
+
+                }
+            //     processing = false; //resets the ajax flag once the callback concludes
+            // });
+//            alert("At bottom");
+
+        }
+    });
 });
 
 function loadPosts(type,loggedUser,title) {
@@ -27,8 +49,11 @@ function loadPosts(type,loggedUser,title) {
         return;
     var heading = $("<h2>").addClass("title").html(title);
     var body = $("#bodyOfHome");
+    if(window.bottomflag!==1){
     body.html(heading);
-    var url = "http://localhost:8080/posts/users/" + loggedUser+"/posts/"+type;
+    }
+    //var url = "http://localhost:8080/posts/users/" + loggedUser+"/posts/"+type;
+    var url = "http://localhost:8080/posts/usertyperange/"+loggedUser+"/postTypeRange/"+type+"/fromrange/"+window.counter+"/torange/25";
     $.ajax({
         url: url,
         type:"get",
@@ -36,6 +61,7 @@ function loadPosts(type,loggedUser,title) {
         //     "postType":type
         // },
         success:function (data) {
+
             $.each(data,function (key,val) {
                 // var div = $("<div>").addClass("posts").html("");
                 var divtag = $("<div>")
