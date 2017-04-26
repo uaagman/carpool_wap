@@ -1,5 +1,6 @@
 package com.carpool.domain;
 
+import com.carpool.validator.constraint.Age;
 import com.carpool.validator.constraint.Length;
 import com.carpool.validator.constraint.Number;
 import org.hibernate.validator.constraints.Email;
@@ -21,6 +22,7 @@ public class User {
     private Integer zipCode;
     @Number
     @Length(min = 4 , max = 4)
+    @Age
     private Integer birthYear;
     @Email
     private String email;

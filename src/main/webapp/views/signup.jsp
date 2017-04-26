@@ -4,7 +4,9 @@
 <link href="/resources/css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-
+<c:if test="${user ne null}">
+    <%@include file="inc/nav.jsp"%>
+</c:if>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
