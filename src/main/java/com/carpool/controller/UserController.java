@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by Crawlers on 4/24/2017.
  */
-@RestController
 @Controller
 public class UserController {
     @Autowired
@@ -55,8 +54,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ModelAndView signupPost(@RequestParam String userId,
-                                   @RequestParam String fullName,
+    public ModelAndView signupPost(@RequestParam String fullName,
                                    @RequestParam String gender,
                                    @RequestParam String state,
                                    @RequestParam String city,

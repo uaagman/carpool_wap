@@ -5,28 +5,40 @@
     padding: 10px 0;
     color: black !important;
 }
-
 #offerRide {
     background-color: #92acf8;
 }
-
 .title {
     text-align: center;
     background-color: white;
 }
-
 #bodyOfHome {
     /*border: 2px solid red;*/
     margin-top: 2%;
 }
-
 .loading{
     text-align: center;
     display: none;
 }
-
 .error{
     color: red;
     background-color: white;
     text-align: center;
+}
+.locations .from{
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.locations .to{
+    border-bottom: 1px solid black;
+}
+.posts{
+    border-bottom: 3px dashed darkblue;
+}
+.posts .clearfix{
+    font-size: 1.5em;
+    margin: 5px 0;
+}
+.likeComment{
+    margin: 5% 0;
 }

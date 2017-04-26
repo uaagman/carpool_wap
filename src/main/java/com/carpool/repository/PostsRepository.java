@@ -15,9 +15,10 @@ public interface PostsRepository extends MongoRepository<Posts, String> {
     public Posts findByDatecreated(LocalDateTime datecreated);
     public Posts findByDateupdated(LocalDateTime dateupdated);
     public List<Posts> findByPostType(String postType);
+    public List<Posts> findByUserIdAndPostType(String userId, String postType);
     public List<Posts> findAll();
    // public Posts insert(Posts posts);
-//    public void removePostsByPostId(String id);
+    public void removePostsByPostId(String id);
 //    public void updatePosts(Posts posts);
 //    void insertPosts(Posts posts);
 

@@ -2,7 +2,7 @@
 $(function () {
     var pos;
     $.ajax({
-        url: "/getZipOfLoggedUser",
+        url: "/js/getZipOfLoggedUser",
         type: "get",
         success: function (data) {
             if (data) {

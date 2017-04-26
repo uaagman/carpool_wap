@@ -1,7 +1,9 @@
 package com.carpool.controller;
 
 import com.carpool.domain.Posts;
+import com.carpool.domain.User;
 import com.carpool.repository.PostsRepository;
+import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,9 @@ public class PostsController {
     PostsRepository postsRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     Validator<Posts> validator;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -43,11 +48,32 @@ public class PostsController {
         return postsRepository.findByPostType(postType);
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public void deletePostsById(@PathVariable("id") String id){
-//        postsRepository.removePostsByPostId(id);
-//
+    //@RequestMapping(value = "/userIdpostType/{userId}{postType}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
+//    public Collection<Posts> findByUserId(
+//            @PathVariable("userId") String userId){
+//        return postsRepository.findByUserId(userId);
 //    }
+
+
+    @RequestMapping(value = "/users/{userId}/posts/{postType}", method = RequestMethod.GET)
+    public Collection<Posts> findByUserIdAndPostType(
+            @PathVariable("userId") String userId,
+            @PathVariable("postType") String postType){
+        User user= userRepository.findByEmail(userId);
+        if(user!=null){
+            return postsRepository.findByUserIdAndPostType(user.getUserId(),postType);
+        }
+        else
+            return null;
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deletePostsById(@PathVariable("id") String id){
+        postsRepository.removePostsByPostId(id);
+
+    }
 //
 //    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 //    public void deletePostsById(@RequestBody Posts posts){
