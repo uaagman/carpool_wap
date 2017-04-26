@@ -48,3 +48,12 @@
 .likeComment{
     margin: 5% 0;
 }
+#fromMap, #toMap{
+    height: 75vh;
+}
+#fromMap{
+    border: 2px solid black;
+}
+#toMap{
+    border: 2px solid black;
+}

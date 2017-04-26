@@ -215,6 +215,11 @@ $(function () {
     function showWeatherMap(event) {
         var fromZip = event.data.from;
         var toZip = event.data.to;
+        initMap(fromZip,'fromMap');
+        initMap(toZip,'toMap');
+        $(".modalMap.fromMap h5").html("From Location : "+fromZip);
+        $(".modalMap.toMap h5").html("To Location : "+toZip);
+        $('#myModal').modal('show');
     }
 
 });

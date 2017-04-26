@@ -18,7 +18,7 @@
                 <li><a href="<c:url value="/home"/> ">Home</a></li>
                 <li><a href="<c:url value="/myposts"/>">My Posts</a></li>
                 <li><a href="<c:url value="/weather"/>">WeatherService</a></li>
-                <li><a href="<c:url value="/map"/>">Map</a></li>
+                <li><a href="<c:url value="/map"/>">WeatherMap</a></li>
                 <c:if test="${loggedUser ne null}">
 
                     <li class="dropdown">
