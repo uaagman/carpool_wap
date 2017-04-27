@@ -87,7 +87,12 @@ public class UserController {
             }
         } else {
             model.addAttribute("errorJson", validationMap.get(validationMap.keySet().toArray()[0]));
-            model.addAttribute("errorMsg", "Data posted is invalid!!!");
+            String errorMessage = "Data posted is invalid!!!";
+            if(validationMap.values().toArray()[0]!=null){
+                errorMessage= validationMap.values().toArray()[0].toString();
+            }
+
+            model.addAttribute("errorMsg", errorMessage);
         }
         model.addAttribute("user", user);
         return new ModelAndView("signup");

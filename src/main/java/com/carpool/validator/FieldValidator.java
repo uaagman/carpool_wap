@@ -165,7 +165,7 @@ public class FieldValidator<T> implements Validator<T> {
                     if (obj != null) {
                         if (!obj.toString().isEmpty()) {
                             Integer year = LocalDate.now().getYear();
-                            if (year - Integer.parseInt(field.getName()) < 18) {
+                            if (year - Integer.parseInt(obj.toString()) < 18) {
                                 errorMessages.add(new ErrorMessage(ErrorSource.FIELD_ERROR, field.getName(),
                                     String.format("Age Must be more than 18", field.getName()),
                                     CAUSED_MESSAGE));
