@@ -3,6 +3,7 @@ package com.carpool.domain;
 import com.carpool.validator.constraint.Age;
 import com.carpool.validator.constraint.Length;
 import com.carpool.validator.constraint.Number;
+import com.carpool.validator.constraint.Password;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 
@@ -27,6 +28,7 @@ public class User {
     @Email
     private String email;
     @Length(min = 6)
+    @Password
     private String password;
     private String rePassword;
 

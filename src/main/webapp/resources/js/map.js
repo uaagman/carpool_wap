@@ -21,6 +21,12 @@ function initMap(zipCode,mapId)
                 };
                 map = new google.maps.Map(document.getElementById(mapId),
                     mapOptions);
+                var marker = new google.maps.Marker({
+                    position: {lat: lat, lng: lon},
+                    map: map,
+                    visible:true
+                });
+                marker.setMap(map);
                 // Add interaction listeners to make weather requests
                 google.maps.event.addListener(map, 'idle', checkIfDataRequested);
                 // Sets up and populates the info window with details

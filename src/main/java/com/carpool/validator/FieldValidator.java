@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class FieldValidator<T> implements Validator<T> {
     private static final String CAUSED_MESSAGE = "Caused by invalid field value";
 
-    public Map<Boolean, String> validate(T t) {
+    public Map<Boolean, List<ErrorMessage>> validate(T t) {
         Map map = new HashMap<>();
         List<ErrorMessage> errorMessages = new ArrayList<>();
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -147,9 +147,12 @@ public class FieldValidator<T> implements Validator<T> {
                 if (annotation instanceof Password) {
                     if (obj != null) {
                         if (!obj.toString().isEmpty()) {
-                            String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d$@$!%*?&]).*$";
+                            String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$";
                             pattern = Pattern.compile(PASSWORD_REGEX);
                             matcher = pattern.matcher(obj.toString());
+                            System.out.println("matcher:"+matcher);
+                            System.out.println("matcher match:"+matcher.matches());
+                            System.out.println("Object:"+obj.toString());
                             if (!matcher.matches()) {
                                 errorMessages.add(new ErrorMessage(ErrorSource.FIELD_ERROR, field.getName(),
                                     String.format("%s is not a valid password", field.getName()),
@@ -189,7 +192,7 @@ public class FieldValidator<T> implements Validator<T> {
             //return new ValidationHandler(json);
 
         }
-        map.put(result, json);
+        map.put(result, errorMessages);
         System.out.println("Validation Result:" + result);
         return map;
     }

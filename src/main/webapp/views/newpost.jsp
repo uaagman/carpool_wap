@@ -69,8 +69,8 @@
                 </fieldset>
 
                 <div class="form-group">
-                    <textarea name="post" id="post" required="required" rows="10" cols="70"
-                              placeholder="Please enter your post here"></textarea>
+                    <textarea name="post" id="post" required="required"
+                              placeholder="Please enter your post here" class="form-control"></textarea>
                 </div>
 
                 <a class="btn btn-default" href="<c:url value="/posts"/>">Back</a>

@@ -23,6 +23,6 @@ public class ShowMessageTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         JspWriter out = getJspContext().getOut();
-        out.write(String.format("<span style='color:%s'>%s</span>", color, text));
+        out.write(String.format("<div style='color:%s'>%s</div>", color, text));
     }
 }
