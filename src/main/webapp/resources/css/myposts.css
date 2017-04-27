@@ -1,3 +1,15 @@
+#offerRideMy, #askForRideMy {
+    background-color: #b0dcea;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+    color: black !important;
+}
+#offerRideMy {
+    background-color: #92acf8;
+}
+
+
 #newPost{
     text-align: center;
     font-size: 20px;
@@ -15,7 +27,6 @@
 
 
 .deleteBtn {
-    float:right;
-    margin-top: 3px;
-    margin-right:5px;
+
+    margin-top: 5px;
 }
