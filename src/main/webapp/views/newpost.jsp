@@ -73,7 +73,7 @@
                               placeholder="Please enter your post here" class="form-control"></textarea>
                 </div>
 
-                <a class="btn btn-default" href="<c:url value="/posts"/>">Back</a>
+                <a class="btn btn-default" href="<c:url value="/myposts"/>">Back</a>
                 <button class="btn btn-primary pull-right" type="submit">Post it</button>
             </form>
 
