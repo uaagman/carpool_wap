@@ -13,6 +13,7 @@
 </div>
 
 <%@include file="inc/footer.jsp" %>
+<script src="/resources/js/script.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCg4hATJz-Rl6ZzaTs3bnSVbnXE_MZolzg"></script>
 <script src="/resources/js/map.js" rel="script" type="text/javascript"></script>
 <script>

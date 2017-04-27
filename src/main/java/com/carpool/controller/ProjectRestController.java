@@ -10,7 +10,6 @@ import com.carpool.repository.PostsRepository;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -26,6 +25,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/js")
 public class ProjectRestController {
+
     @Autowired
     UserRepository userRepository;
 
@@ -106,5 +106,18 @@ public class ProjectRestController {
     @GetMapping(value = "/postType/{postType}/{page}/{size}")
     public Collection<Posts> findByPostTypeBySize(@PathVariable("postType") String postType, @PathVariable("page") Integer page, @PathVariable("size") Integer size){
         return postsRepository.findByPostTypeOrderByDatecreatedDesc(postType,new PageRequest(page,size));
+    }
+
+    @GetMapping(value = "/getLatestPosts")
+    public List<Posts> getLatestPosts(HttpSession session){
+        if(session.getAttribute("lastAccessTime") == null){
+            session.setAttribute("lastAccessTime",LocalDateTime.now());
+            return null;
+        }else{
+            LocalDateTime lastAccess = (LocalDateTime) session.getAttribute("lastAccessTime");
+            session.setAttribute("lastAccessTime",LocalDateTime.now());
+            return postsRepository.findByDatecreatedAfter(lastAccess);
+        }
+//        LocalDateTime lastAccess = LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(cuttDate)), ZoneOffset.UTC);
     }
 }
