@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 @Component
 public class AuthenticationFilter implements Filter {
-    private String[] excludedUrl = {"login", "css", "js", "signup"};
+    private String[] excludedUrl = {"login", "css", "js", "signup", "socket", "images"};
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

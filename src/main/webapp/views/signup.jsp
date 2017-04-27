@@ -1,11 +1,12 @@
 <%@include file="inc/header.jsp" %>
 <%--@elvariable id="user" type="com.carpool.domain.User"--%>
+<%--@elvariable id="error" type="com.carpool.exception.ErrorMessage"--%>
 <title>Signup - Carpool</title>
 <link href="/resources/css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<c:if test="${user ne null}">
-    <%@include file="inc/nav.jsp"%>
+<c:if test="${loggedUser ne null}">
+    <%@include file="inc/nav.jsp" %>
 </c:if>
 <div class="container">
     <div class="row">
@@ -13,7 +14,7 @@
             <form method="post" action="/signup" class="signup">
                 <div class="titleH">
                     <c:choose>
-                        <c:when test="${user ne null}">
+                        <c:when test="${loggedUser ne null}">
                             Update Profile
                         </c:when>
                         <c:otherwise>
@@ -22,6 +23,12 @@
                     </c:choose>
                 </div>
                 <div class="error">${errorMsg}</div>
+                <div class="error">
+                    <c:forEach items="${errors}" var="error">
+                        ${error.message}<br/>
+                       <%-- <ce:showMessage color="red" text="${error.message}"/>--%>
+                    </c:forEach>
+                </div>
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" name="fullName" id="fullName" value="${user.fullName}" required="required"
@@ -61,12 +68,12 @@
                 <div class="form-group">
                     <label for="zipCode">Zip code</label>
                     <input type="number" name="zipCode" id="zipCode" value="${user.zipCode}" required="required"
-                           class="form-control"/>
+                           class="form-control" minlength="5" maxlength="5"/>
                 </div>
                 <div class="form-group">
                     <label for="birthYear">Birth Year</label>
                     <input type="number" name="birthYear" id="birthYear" value="${user.birthYear}" required="required"
-                           class="form-control"/>
+                           class="form-control" minlength="4" maxlength="4"/>
                 </div>
                 <hr/>
                 <div class="form-group">
@@ -76,7 +83,8 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required="required" class="form-control"/>
+                    <input type="password" name="password" id="password" required="required" class="form-control"
+                           pattern="(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{6,}"/>
                 </div>
                 <div class="form-group">
                     <label for="rePassword">Reenter Password</label>
@@ -85,7 +93,7 @@
                 <hr/>
                 <a class="btn btn-default" href="<c:url value="/login"/>">Back</a>
                 <button class="btn btn-primary pull-right" type="submit"><c:choose>
-                    <c:when test="${user ne null}">
+                    <c:when test="${loggedUser ne null}">
                         Update Profile
                     </c:when>
                     <c:otherwise>
