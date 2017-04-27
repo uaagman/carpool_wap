@@ -74,16 +74,13 @@ public class UserController {
         Map<Boolean, List<ErrorMessage>> validationMap = validator.validate(user);
         if ((boolean)validationMap.keySet().toArray()[0]) {
             if (password.equals(rePassword)){
-                System.out.println("userID:"+userId);
-                System.out.println("userID isEmpty:"+userId.isEmpty());
                 if (userId==null||userId.isEmpty()){
                     user.setUserId(null);
                     userRepository.insert(user);
-                    session.setAttribute("loggedUser", email);
                 }else {
-                    System.out.println("inside save");
                     userRepository.save(user);
                 }
+                session.setAttribute("loggedUser", email);
                 return new ModelAndView("redirect:/home", model);
             }else {
                 model.addAttribute("errorMsg", "Password Confirmation didn't matched!!!");
