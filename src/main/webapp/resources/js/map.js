@@ -16,7 +16,7 @@ function initMap(zipCode,mapId)
                 lat = results[0].geometry.location.lat();
                 lon = results[0].geometry.location.lng();
                 var mapOptions = {
-                    zoom: 10,
+                    zoom: 8,
                     center: new google.maps.LatLng(lat, lon)
                 };
                 map = new google.maps.Map(document.getElementById(mapId),
