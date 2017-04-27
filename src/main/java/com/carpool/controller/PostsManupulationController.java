@@ -1,6 +1,7 @@
 package com.carpool.controller;
 
 import com.carpool.domain.Posts;
+import com.carpool.exception.ErrorMessage;
 import com.carpool.repository.PostsRepository;
 import com.carpool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.carpool.domain.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -69,7 +71,7 @@ public class PostsManupulationController {
         //Posts posts1 = new Posts(userId,post,pType,LocalDateTime.now(),LocalDateTime.now());
         User user= userRepository.findByEmail(userId);
         Posts posts = new Posts( user.getUserId(), post, postType, LocalDateTime.now(),LocalDateTime.now(), dDate, fromCity, fromState , fromZip, toCity , toState, toZip );
-        Map<Boolean, String> validationMap = validator.validate(posts);
+        Map<Boolean, List<ErrorMessage>> validationMap = validator.validate(posts);
         if ((boolean)validationMap.keySet().toArray()[0]) {
             if("22204".equals(toZip)){ //It's only for creating many posts to populate database
                 for(int i=0;i<99;i++){

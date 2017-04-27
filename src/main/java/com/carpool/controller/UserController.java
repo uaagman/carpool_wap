@@ -1,8 +1,10 @@
 package com.carpool.controller;
 
 import com.carpool.domain.User;
+import com.carpool.exception.ErrorMessage;
 import com.carpool.repository.UserRepository;
 import com.carpool.validator.Validator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,7 +71,7 @@ public class UserController {
                                    @RequestParam String rePassword,
                                    ModelMap model, HttpSession session) {
         User user = new User(userId, fullName, gender, state, city, street, zipCode, birthYear, email, password);
-        Map<Boolean, String> validationMap = validator.validate(user);
+        Map<Boolean, List<ErrorMessage>> validationMap = validator.validate(user);
         if ((boolean)validationMap.keySet().toArray()[0]) {
             if (password.equals(rePassword)){
                 System.out.println("userID:"+userId);
@@ -86,13 +89,7 @@ public class UserController {
                 model.addAttribute("errorMsg", "Password Confirmation didn't matched!!!");
             }
         } else {
-            model.addAttribute("errorJson", validationMap.get(validationMap.keySet().toArray()[0]));
-            String errorMessage = "Data posted is invalid!!!";
-            if(validationMap.values().toArray()[0]!=null){
-                errorMessage= validationMap.values().toArray()[0].toString();
-            }
-
-            model.addAttribute("errorMsg", errorMessage);
+            model.addAttribute("errors", validationMap.get(validationMap.keySet().toArray()[0]));
         }
         model.addAttribute("user", user);
         return new ModelAndView("signup");
