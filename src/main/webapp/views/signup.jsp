@@ -61,12 +61,12 @@
                 <div class="form-group">
                     <label for="zipCode">Zip code</label>
                     <input type="number" name="zipCode" id="zipCode" value="${user.zipCode}" required="required"
-                           class="form-control"/>
+                           class="form-control" minlength="5" maxlength="5"/>
                 </div>
                 <div class="form-group">
                     <label for="birthYear">Birth Year</label>
                     <input type="number" name="birthYear" id="birthYear" value="${user.birthYear}" required="required"
-                           class="form-control"/>
+                           class="form-control" minlength="4" maxlength="4"/>
                 </div>
                 <hr/>
                 <div class="form-group">
@@ -76,7 +76,8 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required="required" class="form-control"/>
+                    <input type="password" name="password" id="password" required="required" class="form-control"
+                           pattern="(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{6,}"/>
                 </div>
                 <div class="form-group">
                     <label for="rePassword">Reenter Password</label>
