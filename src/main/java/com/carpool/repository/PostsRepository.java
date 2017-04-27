@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -35,4 +36,5 @@ public interface PostsRepository extends MongoRepository<Posts, String>, PostsRe
 //    public void updatePosts(Posts posts);
 //    void insertPosts(Posts posts);
 
+    public List<Posts> findByDatecreatedAfter(LocalDateTime datacreated);
 }

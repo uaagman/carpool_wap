@@ -82,6 +82,7 @@
 </div>
 
 <%@include file="inc/footer.jsp" %>
+<script src="/resources/js/script.js"></script>
 <script src="resources/js/dateTimePicker.js" rel="script" type="text/javascript"></script>
 </body>
 </html>

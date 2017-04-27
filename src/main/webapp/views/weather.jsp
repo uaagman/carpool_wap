@@ -21,6 +21,7 @@
 
 
 <%@include file="inc/footer.jsp" %>
+<script src="/resources/js/script.js"></script>
 <script src="/resources/js/weather.js" rel="script" type="text/javascript"></script>
 <%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?client=​6c974d3d4c6fd517225aff5aec044a85"></script>--%>
 </body>

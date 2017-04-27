@@ -39,3 +39,14 @@ fieldset {
 #post{
     margin-top: 10px;
 }
+
+.notification{
+    position: fixed;
+    right: 5px;
+    top: 5px;
+    z-index: 10;
+    background-color: darkblue;
+    color: white;
+    border: 1px solid red;
+    padding: 20px;
+}
